@@ -21,7 +21,7 @@ def main():
         print(tmp)
         # If there's an obstacle in the way
         if tmp != [2,2,2,2]:
-            print("Obstacle in the way!")
+            print("Woah Obstacle in the way!")
             fc.stop()
             direction = choose_random_direction()
             print(f"Direction selected: {direction}")
