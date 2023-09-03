@@ -4,7 +4,7 @@ import time
 
 # Constants
 travel_speed = 3
-turn_speed = 20
+turn_speed = 35
 distance_threshold = 45 # cm
 
 # Function to get left or right direction randomly
@@ -13,7 +13,7 @@ def choose_random_direction():
 
 def main():
     while True:
-        scan_list = fc.scan_step(35)
+        scan_list = fc.scan_step(distance_threshold)
         if not scan_list:
             continue
 
@@ -21,7 +21,7 @@ def main():
         print(tmp)
         # If there's an obstacle in the way
         if tmp != [2,2,2,2]:
-            print("Weronika! Woah Obstacle in the way!")
+            print("Obstacle in the way!")
             fc.stop()
             direction = choose_random_direction()
             print(f"Direction selected: {direction}")
