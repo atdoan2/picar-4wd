@@ -13,7 +13,7 @@ def choose_random_direction():
 
 def main():
     while True:
-        scan_list = fc.scan_step(distance_threshold)
+        scan_list = fc.scan_step(35)
         if not scan_list:
             continue
 
