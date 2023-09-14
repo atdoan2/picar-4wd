@@ -1,2 +1,5 @@
 .vscode/*
 *.DS_Store
+
+cs437/object_detection/efficientdet_lite0_edgetpu.tflite
+cs437/object_detection/efficientdet_lite0.tflite

@@ -41,6 +41,9 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
 
     # Desired FPS
     target_fps = 1.0
+    
+    # Calculate the delay needed to achieve the target FPS
+    delay = 1.0 / target_fps
 
     # Start capturing video input from the camera
     cap = cv2.VideoCapture(camera_id)
@@ -103,7 +106,9 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
         cv2.imshow('object_detector', image)
 
         # Delay to achieve the desired FPS
-        time.sleep(1.0 / target_fps)
+        elapsed_time = time.time() - start_time
+        if elapsed_time < delay:
+            time.sleep(delay - elapsed_time)
 
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
