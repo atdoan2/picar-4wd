@@ -81,25 +81,26 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
         # Run object detection estimation using the model.
         detection_result = detector.detect(input_tensor)
 
-        # Output the predicted object and probability
-        category = detection_result.categories[0]
-        category_name = category.category_name
-        probability = round(category.score, 2)
+        for detection in detection_result.detections:
+            # Output the predicted object and probability
+            category = detection.categories[0]
+            category_name = category.category_name
+            probability = round(category.score, 2)
         
-        # Draw keypoints and edges on input image
-        image = utils.visualize(image, detection_result)
+        # # Draw keypoints and edges on input image
+        # image = utils.visualize(image, detection_result)
 
-        # Calculate the FPS
-        if counter % fps_avg_frame_count == 0:
-            end_time = time.time()
-            fps = fps_avg_frame_count / (end_time - start_time)
-            start_time = time.time()
+            # Calculate the FPS
+            if counter % fps_avg_frame_count == 0:
+                end_time = time.time()
+                fps = fps_avg_frame_count / (end_time - start_time)
+                start_time = time.time()
 
-        # Show the FPS
-        fps_text = 'FPS = {:.1f}'.format(fps)
-        print(f"Detected Object: {category_name}, Probability: {probability}, FPS: {fps_text}")
-        text_location = (left_margin, row_size)
-        cv2.putText(image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN, 
+            # Show the FPS
+            fps_text = 'FPS = {:.1f}'.format(fps)
+            print(f"Detected Object: {category_name}, Probability: {probability}, FPS: {fps_text}")
+            text_location = (left_margin, row_size)
+            cv2.putText(image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN, 
                     font_size, text_color, font_thickness)
 
         # Display the image
