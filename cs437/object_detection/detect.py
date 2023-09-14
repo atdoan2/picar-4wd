@@ -85,7 +85,6 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
     # Draw keypoints and edges on input image
     image = utils.visualize(image, detection_result)
 
-    print(image)
     # Calculate the FPS
     if counter % fps_avg_frame_count == 0:
       end_time = time.time()
