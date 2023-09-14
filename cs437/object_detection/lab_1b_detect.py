@@ -100,7 +100,7 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
         cv2.imshow('object_detector', image)
 
         # Delay to achieve the desired FPS
-        time.sleep(1.5)
+        time.sleep(0.8)
 
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
