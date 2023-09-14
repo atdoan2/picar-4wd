@@ -108,7 +108,8 @@ def run(model: str, camera_id: int, width: int, height: int, num_threads: int,
         # Delay to achieve the desired FPS
         elapsed_time = time.time() - start_time
         if elapsed_time < delay:
-            time.sleep(delay - elapsed_time)
+            sleep_time = delay - elapsed_time
+            time.sleep(sleep_time)
 
         # Stop the program if the ESC key is pressed.
         if cv2.waitKey(1) == 27:
