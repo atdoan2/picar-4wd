@@ -131,10 +131,8 @@ def astar_search(grid, start, goal):
         closed_set.add(current_node)
         
         for dr, dc, direction in movements:
-            r, c = current_node[0] + dr, current_node[1] + dc
+            r, c = int(current_node[0] + dr), int(current_node[1] + dc)
             neighbor = (r, c)
-            
-            c = int(c)
             
             if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1 and neighbor not in closed_set:
                 tentative_g_score = g_score[current_node] + 1
