@@ -59,8 +59,7 @@ def update_local_map(local_map):
     car_y = picar_position['y']
 
 
-    print(car_x)
-    print(car_y)
+    
     #buffered_local_map = add_buffer(add_buffer(add_buffer(local_map)))
     
     print_map(local_map, picar_position)
@@ -193,7 +192,9 @@ def add_buffer(grid):
 def test():
     for x in range(60):
         local_map = update_map(picar_position, 100)
-    update_local_map(local_map)
+        
+    while True:
+        update_local_map(local_map)
 
 # SLAM with ultrasonic sensor
 def run():
