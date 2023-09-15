@@ -52,20 +52,20 @@ us_step = servo_step_angle
 #     current_position['y'] += velocity['linear'] * np.sin(np.radians(current_position['angle']))
 #     # current_position['angle'] += velocity['turning']
 
-def update_local_map():
+# def update_local_map():
     
-    for x in range(60):
-        local_map = slam.update_map(picar_position, 100)
-    car_x = picar_position['x']
-    car_y = picar_position['y']
+#     for x in range(60):
+#         local_map = slam.update_map(picar_position, 100)
+#     car_x = picar_position['x']
+#     car_y = picar_position['y']
 
-    #local_map[car_x][car_y] = '5'
+#     #local_map[car_x][car_y] = '5'
 
 
-    #buffered_local_map = add_buffer(add_buffer(add_buffer(local_map)))
+#     #buffered_local_map = add_buffer(add_buffer(add_buffer(local_map)))
     
-    slam.print_map(local_map, picar_position)
-    #print_map(buffered_local_map, picar_position)
+#     slam.print_map(local_map, picar_position)
+#     #print_map(buffered_local_map, picar_position)
 
 
     
@@ -196,8 +196,8 @@ def add_buffer(grid):
 
 
 
-def test():
-    update_local_map()
+# def test():
+#     update_local_map()
 
 # SLAM with ultrasonic sensor
 def run():
@@ -257,6 +257,6 @@ def run():
 
 if __name__ == "__main__":
     try:
-        test()
+        run()
     finally:
         fc.stop()
