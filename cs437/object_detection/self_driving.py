@@ -333,6 +333,8 @@ def add_buffer(grid):
 def self_driving():
     result = main()
 
+    result = list(result)
+
     cat_name = result[0]
     probability = cat_name[1]
 
