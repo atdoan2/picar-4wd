@@ -2,7 +2,7 @@ import numpy as np
 import time
 import picar_4wd as fc
 import lab_1b_more_advanced_mapping as slam
-from AStartSearch import AStar
+from a_star_search import AStar
 
 # Initialize the map
 map_width = 100
