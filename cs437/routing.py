@@ -72,8 +72,7 @@ def update_map(car_position, threshold):
 
     # Check if the servo angle has reached the limits
     if current_angle >= 180:
-        current_angle = 180
-        us_step = -servo_step_angle  # Reverse direction
+        current_angle = -180
          # Clear the map at the beginning of each scan
         picar_map = np.zeros((map_width, map_height), dtype=int)
         time.sleep(1)
@@ -181,8 +180,6 @@ def run():
         #     print()
         
         if current_angle == 180:
-            current_angle = -180
-            us_step = 5
             path, move_directions = astar_search(buffered_map, start, goal)
             if path:
                 moves = list(move_directions.values())
