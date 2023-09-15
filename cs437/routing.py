@@ -130,6 +130,8 @@ def run():
         #         print(elem,end="")
         #     print()
         
+        moves = []
+        
         path, move_directions = astar_search(buffered_map, start, goal)
         # print(path)
         # print(move_directions)
