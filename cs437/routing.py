@@ -176,10 +176,10 @@ def run():
         updated_map = update_map(picar_position, threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         
-        for row in buffered_map:
-            for elem in row:
-                print(elem,end="")
-            print()
+        # for row in buffered_map:
+        #     for elem in row:
+        #         print(elem,end="")
+        #     print()
         
         if current_angle == 180:
             path, move_directions = astar_search(buffered_map, start, goal)
