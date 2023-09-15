@@ -193,8 +193,8 @@ def run():
                         print("move forward")
                         fc.forward(3)
                         time.sleep(1)
-                        start = (start[0]+3, start[1])
-                        goal = (start[0]+3, start[1])
+                        start = (start[0]+10, start[1])
+                        goal = (start[0]+10, start[1])
                         fc.stop()
                     elif move == "down":
                         print("move backward")
