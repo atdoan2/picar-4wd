@@ -30,7 +30,7 @@ def run():
     threshold = 100  # Set threshold (can adjust as needed)
     while True:
         updated_map = slam.update_map(picar_position, threshold)
-        buffered_map = a_star_search.add_buffer(a_star_search.add_buffer(a_star_search.add_buffer(updated_map)))
+        buffered_map = a_star_search.add_buffer(updated_map)
         
         for row in buffered_map:
             for elem in row:
