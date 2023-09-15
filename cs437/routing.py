@@ -134,35 +134,36 @@ def run():
         print(path)
         print(move_directions)
         if path:
-            moves = list(move_directions.values())
-            moves = moves[0:30] # Limit to 5 moves per scan
+            for position in path:
+                direction = move_directions.get(position)
+            # moves = moves[0:30] # Limit to 5 moves per scan
             # print(moves)
-            for move in moves:
-                if move == "up":
+            if direction:
+                if direction == "up":
                     print("move forward")
-                    fc.forward(3)
+                    fc.forward(1)
                     time.sleep(1)
                     start = (start[0], start[1]+1)
                     fc.stop()
-                elif move == "down":
+                elif direction == "down":
                     print("move backward")
-                    fc.backward(3)
+                    fc.backward(1)
                     time.sleep(1)
                     start = (start[0], start[1]-1)
                     fc.stop()
-                elif move == "left":
+                elif direction == "left":
                     print("turn left")
-                    fc.turn_left(20)
+                    fc.turn_left(10)
                     time.sleep(1)
-                    fc.forward(20)
+                    fc.forward(1)
                     time.sleep(1)
                     start = (start[0]-1, start[1])
                     fc.stop()
-                elif move == "right":
+                elif direction == "right":
                     print("turn right")
                     fc.turn_right(20)
                     time.sleep(1)
-                    fc.forward(20)
+                    fc.forward(1)
                     time.sleep(1)
                     start = (start[0]+1, start[1])
                     fc.stop()
