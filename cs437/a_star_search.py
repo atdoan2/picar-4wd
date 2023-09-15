@@ -43,6 +43,8 @@ class AStar():
                 r, c = current_node[0] + dr, current_node[1] + dc
                 neighbor = (r, c)
                 
+                print(r, c)
+                
                 if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 'X' and neighbor not in closed_set:
                     tentative_g_score = g_score[current_node] + 1
                     
