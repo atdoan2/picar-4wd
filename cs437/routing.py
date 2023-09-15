@@ -169,8 +169,8 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (picar_position['x'],picar_position['y'])
-    goal = (50,map_width/2)
+    start = (0,0)
+    goal = (200,200)
     turningAngle = 20
     while True:
         updated_map = update_map(picar_position, threshold)
@@ -181,50 +181,48 @@ def run():
                 print(elem,end="")
             print()
         
-
-        path, move_directions = astar_search(buffered_map, start, goal)
-        if path:
-            moves = list(move_directions.values())
-            moves = moves[0:5] # Limit to 5 moves per scan
-            print(moves)
-            for move in moves:
-                if move == "up":
-                    print("move forward")
-                    fc.forward(3)
-                    time.sleep(1)
-                    start = (start[0]+10, start[1])
-                    goal = (goal[0]+10, goal[1])
-                    fc.stop()
-                elif move == "down":
-                    print("move backward")
-                    fc.backward(3)
-                    time.sleep(1)
-                    start = (start[0]-3, start[1])
-                    goal = (goal[0]-3, goal[1])
-                    fc.stop()
-                elif move == "left":
-                    print("turn left")
-                    fc.turn_left(turningAngle) 
-                    time.sleep(1)
-                    print("move forward")
-                    fc.forward(20)
-                    time.sleep(1)
-                    start = (start[0]+np.sin(turningAngle), start[1]+np.cos(turningAngle)) #using same number as turning angle
-                    goal = (goal[0]+np.sin(turningAngle), goal[1]+np.cos(turningAngle))
-                    fc.stop()
-                elif move == "right":
-                    print("turn right")
-                    fc.turn_right(turningAngle)
-                    time.sleep(1)
-                    print("move forward")
-                    fc.forward(20)
-                    time.sleep(1)
-                    start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-                    goal = (goal[0]+np.sin(current_angle), goal[1]+np.cos(current_angle))
-                    fc.stop()
-            print("start: ",start)
-            print("goal: ",goal)
-            time.sleep(5)
+        if current_angle == 180:
+            path, move_directions = astar_search(buffered_map, start, goal)
+            if path:
+                moves = list(move_directions.values())
+                moves = moves[0:5] # Limit to 5 moves per scan
+                print(moves)
+                for move in moves:
+                    if move == "up":
+                        print("move forward")
+                        fc.forward(3)
+                        time.sleep(1)
+                        goal = (goal[0]-10, goal[1])
+                        fc.stop()
+                    elif move == "down":
+                        print("move backward")
+                        fc.backward(3)
+                        time.sleep(1)
+                        goal = (goal[0]+10, goal[1])
+                        fc.stop()
+                    elif move == "left":
+                        print("turn left")
+                        fc.turn_left(turningAngle) 
+                        time.sleep(2)
+                        print("move forward")
+                        fc.forward(3)
+                        time.sleep(1)
+                        goal = (goal[0], goal[1]-10)
+                        fc.stop()
+                    elif move == "right":
+                        print("turn right")
+                        fc.turn_right(turningAngle)
+                        time.sleep(2)
+                        print("move forward")
+                        fc.forward(3)
+                        time.sleep(1)
+                        goal = (goal[0], goal[1]+10)
+                        fc.stop()
+                        
+                if(goal == (0,0)):
+                    print("DONE")
+                print("goal: ",goal)
+                time.sleep(5)
 
 
         
