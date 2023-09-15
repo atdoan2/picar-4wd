@@ -17,8 +17,8 @@ def clear_console():
 
 def update_map(threshold):
     # Initialize the map
-    scan_width = 100
-    scan_length = 100
+    scan_width = 400
+    scan_length = 400
     picar_map = np.zeros((scan_width, scan_length), dtype=int)
     
     servo_step_angle = 5
@@ -120,7 +120,7 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (picar_position['x'], picar_position['y'])
-    goal = (0, 75)
+    goal = (400, 400)
 
     while start != goal:
         scan_map = update_map(threshold)
