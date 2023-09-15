@@ -96,8 +96,6 @@ def update_map(car_position, threshold):
 
 movements = [(1, 0, "down"), (-1, 0, "up"), (0, 1, "right"), (0, -1, "left")]
 
-
-
 def heuristic(current, goal):
     # Calculate the Manhattan distance as the heuristic
     return abs(current[0] - goal[0]) + abs(current[1] - goal[1])
@@ -170,15 +168,11 @@ def add_buffer(grid):
 
     return new_grid
 
-
-
-
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     while True:
         updated_map = update_map(picar_position, threshold)
-        
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         
         for row in buffered_map:
@@ -189,12 +183,11 @@ def run():
         start = (map_height-1,map_width/2)
         goal = (0,map_width/2)
         
-        
         if current_angle == 180:
             path, move_directions = astar_search(buffered_map, start, goal)
             if path:
                 moves = list(move_directions.values())
-                moves = moves[0:3]
+                # moves = moves[0:3]
                 print(moves)
                 for move in moves:
                     if move == "up":
