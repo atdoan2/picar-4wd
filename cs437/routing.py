@@ -186,7 +186,7 @@ def run():
             path, move_directions = astar_search(buffered_map, start, goal)
             if path:
                 moves = list(move_directions.values())
-                moves = moves[0:5]
+                moves = moves[0:5] # Limit to 5 moves per scan
                 print(moves)
                 for move in moves:
                     if move == "up":
