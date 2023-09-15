@@ -88,6 +88,7 @@ def update_map(car_position, threshold):
     # Clear the console and print the current state of the map and robot's pose
     clear_console()
     print_map(picar_map, picar_position)
+    return picar_map
 
 # SLAM with ultrasonic sensor
 def slam():
