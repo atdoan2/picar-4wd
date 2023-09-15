@@ -32,10 +32,10 @@ def run():
         updated_map = slam.update_map(picar_position, threshold)
         buffered_map = a_star_search.add_buffer(a_star_search.add_buffer(a_star_search.add_buffer(updated_map)))
         
-        # for row in buffered_map:
-        #     for elem in row:
-        #         print(elem,end="")
-        #     print()
+        for row in buffered_map:
+            for elem in row:
+                print(elem,end="")
+            print()
 
         start = (map_height-1,map_width/2)
         goal = (0,map_width/2)
