@@ -169,17 +169,16 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (0,0)
-    goal = (200,200)
-    turningAngle = 20
+    start = (picar_position['x'],picar_position['y'])
+    goal = (50,map_width/2)
     while True:
         updated_map = update_map(picar_position, threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         
-        # for row in buffered_map:
-        #     for elem in row:
-        #         print(elem,end="")
-        #     print()
+        for row in buffered_map:
+            for elem in row:
+                print(elem,end="")
+            print()
         
         if current_angle == 180:
             path, move_directions = astar_search(buffered_map, start, goal)
@@ -192,35 +191,37 @@ def run():
                         print("move forward")
                         fc.forward(3)
                         time.sleep(1)
-                        goal = (goal[0]-10, goal[1])
+                        start = (start[0]+10, start[1])
+                        goal = (start[0]+10, start[1])
                         fc.stop()
                     elif move == "down":
                         print("move backward")
                         fc.backward(3)
                         time.sleep(1)
-                        goal = (goal[0]+10, goal[1])
+                        start = (start[0]-3, start[1])
+                        goal = (start[0]-3, start[1])
                         fc.stop()
                     elif move == "left":
                         print("turn left")
-                        fc.turn_left(turningAngle) 
-                        time.sleep(2)
-                        print("move forward")
-                        fc.forward(3)
+                        fc.turn_left(20)
                         time.sleep(1)
-                        goal = (goal[0], goal[1]-10)
+                        print("move forward")
+                        fc.forward(20)
+                        time.sleep(1)
+                        start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
+                        goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
                         fc.stop()
                     elif move == "right":
                         print("turn right")
-                        fc.turn_right(turningAngle)
-                        time.sleep(2)
-                        print("move forward")
-                        fc.forward(3)
+                        fc.turn_right(20)
                         time.sleep(1)
-                        goal = (goal[0], goal[1]+10)
+                        print("move forward")
+                        fc.forward(20)
+                        time.sleep(1)
+                        start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
+                        goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
                         fc.stop()
-                        
-                if(goal == (0,0)):
-                    print("DONE")
+                print("start: ",start)
                 print("goal: ",goal)
                 time.sleep(5)
 
