@@ -40,7 +40,7 @@ def run():
         start = (map_height-1,map_width/2)
         goal = (0,map_width/2)
         
-        if current_angle == 180 or current_angle == -180:
+        if current_angle == 180:
             path, move_directions = a_star_search.astar_search(buffered_map, start, goal)
             if path:
                 moves = list(move_directions.values())
