@@ -171,6 +171,7 @@ def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (picar_position['x'],picar_position['y'])
     goal = (50,map_width/2)
+    turningAngle = 20
     while True:
         updated_map = update_map(picar_position, threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
@@ -203,23 +204,23 @@ def run():
                         fc.stop()
                     elif move == "left":
                         print("turn left")
-                        fc.turn_left(20)
+                        fc.turn_left(turningAngle) 
                         time.sleep(1)
                         print("move forward")
                         fc.forward(20)
                         time.sleep(1)
-                        start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-                        goal = (goal[0]+np.sin(current_angle), goal[1]+np.cos(current_angle))
+                        start = (start[0]+np.sin(turningAngle), start[1]+np.cos(turningAngle)) #using same number as turning angle
+                        goal = (goal[0]+np.sin(turningAngle), goal[1]+np.cos(turningAngle))
                         fc.stop()
                     elif move == "right":
                         print("turn right")
-                        fc.turn_right(20)
+                        fc.turn_right(turningAngle)
                         time.sleep(1)
                         print("move forward")
                         fc.forward(20)
                         time.sleep(1)
-                        start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-                        goal = (goal[0]+np.sin(current_angle), goal[1]+np.cos(current_angle))
+                        start = (start[0]+np.sin(turningAngle), start[1]+np.cos(turningAngle))
+                        goal = (goal[0]+np.sin(turningAngle), goal[1]+np.cos(turningAngle))
                         fc.stop()
                 print("start: ",start)
                 print("goal: ",goal)
