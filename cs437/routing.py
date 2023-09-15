@@ -13,7 +13,7 @@ def update_map(threshold):
     # Initialize picar's positioning as well as its speed for movement/turning
     picar_position = {
         'x': 100,
-        'y': 500
+        'y': 200
     }
     # Initialize the map
     scan_width = 200
