@@ -12,8 +12,8 @@ def clear_console():
 def update_map(threshold):
     # Initialize picar's positioning as well as its speed for movement/turning
     picar_position = {
-        'x': 100,
-        'y': 200
+        'x': 200,
+        'y': 100
     }
     # Initialize the map
     scan_width = 200
