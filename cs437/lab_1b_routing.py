@@ -205,7 +205,7 @@ def run():
     while True:
         updated_map = slam.update_map(picar_position, threshold)
         
-        buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
+        buffered_map = add_buffer(updated_map)
         
         for row in buffered_map:
             for elem in row:
