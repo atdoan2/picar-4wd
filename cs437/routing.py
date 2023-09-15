@@ -134,8 +134,14 @@ def run():
         # print(path)
         # print(move_directions)
         if path:
-            moves = list(move_directions.values())
-            moves = moves[0:5] # Limit to 5 moves per scan
+            print("Path found:", path)
+            print("Moves:")
+            for position in path:
+                direction = move_directions.get(position)
+                if direction:
+                    moves.append(direction)
+
+            moves = moves[0:10] # Limit to 5 moves per scan
             print(moves)
             for move in moves:
                 if move == "up":
