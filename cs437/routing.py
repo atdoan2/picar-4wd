@@ -4,6 +4,11 @@ import picar_4wd as fc
 
 import heapq
 
+# Initialize picar's positioning as well as its speed for movement/turning
+picar_position = {
+    'x': 0,
+    'y':50
+}
 
 def clear_console():
     # Function to clear the console (for updating the display)
@@ -15,12 +20,6 @@ def update_map(threshold):
     scan_width = 100
     scan_length = 100
     picar_map = np.zeros((scan_width, scan_length), dtype=int)
-
-    # Initialize picar's positioning as well as its speed for movement/turning
-    picar_position = {
-        'x': 0,
-        'y':50
-    }
     
     servo_step_angle = 5
     current_angle = -180
@@ -120,7 +119,7 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (10, 10)
+    start = (picar_position['x'], picar_position['y'])
     goal = (100, 100)
 
     while start != goal:
