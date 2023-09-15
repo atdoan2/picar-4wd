@@ -53,6 +53,7 @@ def update_car_position(current_position, velocity):
 def update_map(car_position, threshold):
     global current_angle, us_step, picar_map # Declare current_angle and us_step as global variables
     # for angle in range(-181, 181, servo_step_angle):  # Rotate the servo between 0 and 180 degrees at 5 degree increments
+    current_angle = -180
     # Get the distance reading from the ultrasonic sensor
     distance = fc.get_distance_at(current_angle)
 
@@ -175,10 +176,10 @@ def run():
         updated_map = update_map(picar_position, threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         
-        for row in buffered_map:
-            for elem in row:
-                print(elem,end="")
-            print()
+        # for row in buffered_map:
+        #     for elem in row:
+        #         print(elem,end="")
+        #     print()
         
         if current_angle == 180:
             path, move_directions = astar_search(buffered_map, start, goal)
