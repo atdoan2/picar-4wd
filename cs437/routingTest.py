@@ -51,25 +51,20 @@ def update_car_position(current_position, velocity):
     current_position['y'] += velocity['linear'] * np.sin(np.radians(current_position['angle']))
     # current_position['angle'] += velocity['turning']
 
-def update_local_map():
-    
-    for x in range(60):
-        local_map = update_map(picar_position, 100)
+def update_local_map(local_map):
+
+    update_car_position(picar_position, velocity)
+
     car_x = picar_position['x']
     car_y = picar_position['y']
 
-    #local_map[car_x][car_y] = '5'
 
-
+    print(car_x)
+    print(car_y)
     #buffered_local_map = add_buffer(add_buffer(add_buffer(local_map)))
     
     print_map(local_map, picar_position)
     #print_map(buffered_local_map, picar_position)
-
-
-    
-    
-
 
 
 
@@ -196,7 +191,9 @@ def add_buffer(grid):
 
 
 def test():
-    update_local_map()
+    for x in range(60):
+        local_map = update_map(picar_position, 100)
+    update_local_map(local_map)
 
 # SLAM with ultrasonic sensor
 def run():
