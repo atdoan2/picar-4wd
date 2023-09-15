@@ -132,10 +132,11 @@ def run():
         
         path, move_directions = astar_search(buffered_map, start, goal)
         print(path)
+        print(move_directions)
         if path:
             moves = list(move_directions.values())
             moves = moves[0:30] # Limit to 5 moves per scan
-            print(moves)
+            # print(moves)
             for move in moves:
                 if move == "up":
                     print("move forward")
