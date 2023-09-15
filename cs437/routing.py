@@ -72,7 +72,7 @@ def update_map(car_position, threshold):
 
     # Check if the servo angle has reached the limits
     if current_angle >= 180:
-        current_angle = 0
+        current_angle = -180
         # us_step = -servo_step_angle  # Reverse direction
          # Clear the map at the beginning of each scan
         picar_map = np.zeros((map_width, map_height), dtype=int)
@@ -89,9 +89,9 @@ def update_map(car_position, threshold):
     #     #update_car_position(picar_position, velocity)
 
     # Clear the console and print the current state of the map and robot's pose
-    clear_console()
+        clear_console()
     #print_map(picar_map, picar_position)
-    return picar_map
+        return picar_map
 
 
 movements = [(1, 0, "down"), (-1, 0, "up"), (0, 1, "right"), (0, -1, "left")]
