@@ -43,7 +43,7 @@ def update_map(threshold):
 
     return picar_map
 
-movements = [(0,1, "up"), (0,-1, "down"), (1, 0, "right"), (-1, 0, "left")]
+movements = [(0,1, "down"), (0,-1, "up"), (1, 0, "right"), (-1, 0, "left")]
 
 def heuristic(current, goal):
     # Calculate the Manhattan distance as the heuristic
