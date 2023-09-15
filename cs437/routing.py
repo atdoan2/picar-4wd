@@ -12,8 +12,8 @@ def clear_console():
 def update_map(threshold):
     # Initialize picar's positioning as well as its speed for movement/turning
     picar_position = {
-        'x': 0,
-        'y':50
+        'x': 100,
+        'y': 500
     }
     # Initialize the map
     scan_width = 400
@@ -124,6 +124,11 @@ def run():
     while start != goal:
         scan_map = update_map(threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(scan_map)))
+        
+        for row in buffered_map:
+            for elem in row:
+                print(elem,end="")
+            print()
         
         path, move_directions = astar_search(buffered_map, start, goal)
         print(path)
