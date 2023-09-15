@@ -193,7 +193,7 @@ def run():
             path, move_directions = astar_search(buffered_map, start, goal)
             if path:
                 moves = list(move_directions.values())
-                moves = moves[0:3]
+                moves = moves[0:5]
                 print(moves)
                 for move in moves:
                     if move == "up":
