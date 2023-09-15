@@ -231,6 +231,8 @@ def run():
                         goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
                         fc.stop()
                 time.sleep(5)
+                print("start: ",start)
+                print("goal: ",goal)
 
         
        # update_car_position(picar_position, velocity)
