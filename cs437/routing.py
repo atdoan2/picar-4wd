@@ -193,14 +193,14 @@ def run():
                         fc.forward(3)
                         time.sleep(1)
                         start = (start[0]+10, start[1])
-                        goal = (start[0]+10, start[1])
+                        goal = (goal[0]+10, goal[1])
                         fc.stop()
                     elif move == "down":
                         print("move backward")
                         fc.backward(3)
                         time.sleep(1)
                         start = (start[0]-3, start[1])
-                        goal = (start[0]-3, start[1])
+                        goal = (goal[0]-3, goal[1])
                         fc.stop()
                     elif move == "left":
                         print("turn left")
@@ -210,7 +210,7 @@ def run():
                         fc.forward(20)
                         time.sleep(1)
                         start = (start[0]+np.sin(turningAngle), start[1]+np.cos(turningAngle)) #using same number as turning angle
-                        goal = (start[0]+np.sin(turningAngle), start[1]+np.cos(turningAngle))
+                        goal = (goal[0]+np.sin(turningAngle), goal[1]+np.cos(turningAngle))
                         fc.stop()
                     elif move == "right":
                         print("turn right")
