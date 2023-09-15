@@ -12,9 +12,9 @@ def clear_console():
 
 def update_map(threshold):
     # Initialize the map
-    map_width = 100
-    map_height = 100
-    picar_map = np.zeros((map_width, map_height), dtype=int)
+    scan_width = 100
+    scan_length = 100
+    picar_map = np.zeros((scan_width, scan_length), dtype=int)
 
     # Initialize picar's positioning as well as its speed for movement/turning
     picar_position = {
@@ -22,12 +22,7 @@ def update_map(threshold):
         'y':50,
         'angle': 0
     }
-
-    velocity = {
-        'linear': 0.1,
-        'turning': 5
-    }
-
+    
     servo_step_angle = 5
     current_angle = -180
     us_step = servo_step_angle
@@ -41,7 +36,7 @@ def update_map(threshold):
         y = int(picar_position['y'] + distance * np.sin(angle_rad))
 
         # Make sure x and y values are within the coordinate map that's defined
-        if 0 <= x < map_width and 0 <= y < map_height:
+        if 0 <= x < scan_width and 0 <= y < scan_length:
             # If the distance is below the threshold, mark the cell as an obstacle
             if distance <= threshold:
                 picar_map[y, x] = 1
@@ -128,7 +123,7 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (0, 0)
+    start = (50, 0)
     goal = (200, 200)
 
     while start != goal:
