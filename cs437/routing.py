@@ -35,7 +35,7 @@ def update_map(threshold):
         # Make sure x and y values are within the coordinate map that's defined
         if 0 <= x < scan_width and 0 <= y < scan_length:
             # If the distance is below the threshold, mark the cell as an obstacle
-            if distance <= threshold:
+            if 5 <= distance <= threshold:
                 picar_map[y, x] = 1
 
         # Increment the servo angle by us_step
