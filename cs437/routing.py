@@ -118,8 +118,8 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (50,50)
-    goal = (399, 399)
+    start = (0,0)
+    goal = (200, 200)
 
     while start != goal:
         scan_map = update_map(threshold)
@@ -142,12 +142,14 @@ def run():
                     fc.forward(3)
                     time.sleep(1)
                     goal = (goal[0]-10, goal[1])
+                    print(goal)
                     fc.stop()
                 elif move == "down":
                     print("move backward")
                     fc.backward(3)
                     time.sleep(1)
                     goal = (goal[0]+10, goal[1])
+                    print(goal)
                     fc.stop()
                 elif move == "left":
                     print("turn left")
@@ -157,6 +159,7 @@ def run():
                     fc.forward(20)
                     time.sleep(1)
                     goal = (goal[0], goal[1]+10)
+                    print(goal)
                     fc.stop()
                 elif move == "right":
                     print("turn right")
@@ -166,6 +169,7 @@ def run():
                     fc.forward(20)
                     time.sleep(1)
                     goal = (goal[0], goal[1]-10)
+                    print(goal)
                     fc.stop()
             print("start: ",start)
             print("goal: ",goal)
