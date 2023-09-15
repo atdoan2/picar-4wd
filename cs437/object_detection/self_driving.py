@@ -331,7 +331,10 @@ def add_buffer(grid):
 
 # SLAM with ultrasonic sensor
 def self_driving():
-    cat_name, probability = main()
+    result = main()
+
+    cat_name = result[0]
+    probability = cat_name[1]
 
     print(str(cat_name)+": "+int(probability))
 
