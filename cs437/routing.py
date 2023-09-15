@@ -140,50 +140,45 @@ def run():
                 print(elem,end="")
             print()
         
-        # if current_angle == 180:
-        #     path, move_directions = astar_search(buffered_map, start, goal)
-        #     if path:
-        #         moves = list(move_directions.values())
-        #         moves = moves[0:5] # Limit to 5 moves per scan
-        #         print(moves)
-        #         for move in moves:
-        #             if move == "up":
-        #                 print("move forward")
-        #                 fc.forward(3)
-        #                 time.sleep(1)
-        #                 start = (start[0]+10, start[1])
-        #                 goal = (start[0]+10, start[1])
-        #                 fc.stop()
-        #             elif move == "down":
-        #                 print("move backward")
-        #                 fc.backward(3)
-        #                 time.sleep(1)
-        #                 start = (start[0]-3, start[1])
-        #                 goal = (start[0]-3, start[1])
-        #                 fc.stop()
-        #             elif move == "left":
-        #                 print("turn left")
-        #                 fc.turn_left(20)
-        #                 time.sleep(1)
-        #                 print("move forward")
-        #                 fc.forward(20)
-        #                 time.sleep(1)
-        #                 start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-        #                 goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-        #                 fc.stop()
-        #             elif move == "right":
-        #                 print("turn right")
-        #                 fc.turn_right(20)
-        #                 time.sleep(1)
-        #                 print("move forward")
-        #                 fc.forward(20)
-        #                 time.sleep(1)
-        #                 start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-        #                 goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-        #                 fc.stop()
-        #         print("start: ",start)
-        #         print("goal: ",goal)
-        #         time.sleep(5)
+        path, move_directions = astar_search(buffered_map, start, goal)
+        if path:
+            moves = list(move_directions.values())
+            moves = moves[0:5] # Limit to 5 moves per scan
+            print(moves)
+            for move in moves:
+                if move == "up":
+                    print("move forward")
+                    fc.forward(3)
+                    time.sleep(1)
+                    goal = (goal[0]-10, goal[1])
+                    fc.stop()
+                elif move == "down":
+                    print("move backward")
+                    fc.backward(3)
+                    time.sleep(1)
+                    goal = (goal[0]+10, goal[1])
+                    fc.stop()
+                elif move == "left":
+                    print("turn left")
+                    fc.turn_left(20)
+                    time.sleep(1)
+                    print("move forward")
+                    fc.forward(20)
+                    time.sleep(1)
+                    goal = (goal[0], goal[1]+10)
+                    fc.stop()
+                elif move == "right":
+                    print("turn right")
+                    fc.turn_right(20)
+                    time.sleep(1)
+                    print("move forward")
+                    fc.forward(20)
+                    time.sleep(1)
+                    goal = (goal[0], goal[1]-10)
+                    fc.stop()
+            print("start: ",start)
+            print("goal: ",goal)
+            time.sleep(5)
 
 
         
