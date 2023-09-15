@@ -125,36 +125,36 @@ def run():
         scan_map = update_map(threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(scan_map)))
         
-        for row in buffered_map:
-            for elem in row:
-                print(elem,end="")
-            print()
+        # for row in buffered_map:
+        #     for elem in row:
+        #         print(elem,end="")
+        #     print()
         
         path, move_directions = astar_search(buffered_map, start, goal)
-        print(path)
-        print(move_directions)
+        # print(path)
+        # print(move_directions)
         if path:
             moves = list(move_directions.values())
-            moves = moves[0:30] # Limit to 5 moves per scan
+            moves = moves[0:5] # Limit to 5 moves per scan
             print(moves)
             for move in moves:
                 if move == "up":
                     print("move forward")
-                    fc.forward(3)
-                    time.sleep(1)
+                    fc.forward(1)
+                    time.sleep(0.5)
                     start = (start[0], start[1]+1)
                     fc.stop()
                 elif move == "down":
                     print("move backward")
-                    fc.backward(3)
-                    time.sleep(1)
+                    fc.backward(1)
+                    time.sleep(0.5)
                     start = (start[0], start[1]-1)
                     fc.stop()
                 elif move == "left":
                     print("turn left")
                     fc.turn_left(20)
                     time.sleep(1)
-                    fc.forward(20)
+                    fc.forward(1)
                     time.sleep(1)
                     start = (start[0]-1, start[1])
                     fc.stop()
@@ -162,7 +162,7 @@ def run():
                     print("turn right")
                     fc.turn_right(20)
                     time.sleep(1)
-                    fc.forward(20)
+                    fc.forward(1)
                     time.sleep(1)
                     start = (start[0]+1, start[1])
                     fc.stop()
