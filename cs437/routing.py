@@ -118,7 +118,7 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (100, 200)
-    goal = (10, 10)
+    goal = (100, 10)
 
     while start != goal:
         scan_map = update_map(threshold)
@@ -140,7 +140,7 @@ def run():
                 if direction:
                     moves.append(direction)
 
-            moves = moves[0:10] # Limit to 5 moves per scan
+            moves = moves[0:5] # Limit to 5 moves per scan
             print(moves)
             for move in moves:
                 if move == "up":
