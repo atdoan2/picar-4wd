@@ -119,11 +119,11 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (0,0)
-    goal = (0, 50)
+    goal = (0,50)
 
     while start != goal:
         scan_map = update_map(threshold)
-        buffered_map = add_buffer(scan_map)
+        buffered_map = add_buffer(add_buffer(add_buffer(scan_map)))
         
         path, move_directions = astar_search(buffered_map, start, goal)
         print(path)
@@ -163,11 +163,6 @@ def run():
             print("start: ",start)
             print("goal: ",goal)
             time.sleep(5)
-
-
-        
-       # update_car_position(picar_position, velocity)
-        #(picar_position)
 
 if __name__ == "__main__":
     try:
