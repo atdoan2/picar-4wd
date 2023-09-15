@@ -72,26 +72,26 @@ def update_map(car_position, threshold):
 
     # Check if the servo angle has reached the limits
     if current_angle >= 180:
-        current_angle = -180
-        # us_step = -servo_step_angle  # Reverse direction
+        current_angle = 180
+        us_step = -servo_step_angle  # Reverse direction
          # Clear the map at the beginning of each scan
         picar_map = np.zeros((map_width, map_height), dtype=int)
         time.sleep(1)
-    # elif current_angle <= -180:
-    #     current_angle = -180
-    #     us_step = servo_step_angle  # Reverse direction
-    #      # Clear the map at the beginning of each scan
-    #     picar_map = np.zeros((map_width, map_height), dtype=int)
-    #    # fc.forward(velocity['linear'])
-    #     time.sleep(1)
-    #     #fc.stop()
-    #     #time.sleep(1)
-    #     #update_car_position(picar_position, velocity)
+    elif current_angle <= -180:
+        current_angle = -180
+        us_step = servo_step_angle  # Reverse direction
+         # Clear the map at the beginning of each scan
+        picar_map = np.zeros((map_width, map_height), dtype=int)
+       # fc.forward(velocity['linear'])
+        time.sleep(1)
+        #fc.stop()
+        #time.sleep(1)
+        #update_car_position(picar_position, velocity)
 
     # Clear the console and print the current state of the map and robot's pose
-        clear_console()
+    clear_console()
     #print_map(picar_map, picar_position)
-        return picar_map
+    return picar_map
 
 
 movements = [(1, 0, "down"), (-1, 0, "up"), (0, 1, "right"), (0, -1, "left")]
@@ -192,14 +192,14 @@ def run():
                         fc.forward(3)
                         time.sleep(1)
                         start = (start[0]+10, start[1])
-                        goal = (goal[0]+10, goal[1])
+                        goal = (start[0]+10, start[1])
                         fc.stop()
                     elif move == "down":
                         print("move backward")
                         fc.backward(3)
                         time.sleep(1)
                         start = (start[0]-3, start[1])
-                        goal = (goal[0]-3, goal[1])
+                        goal = (start[0]-3, start[1])
                         fc.stop()
                     elif move == "left":
                         print("turn left")
@@ -209,7 +209,7 @@ def run():
                         fc.forward(20)
                         time.sleep(1)
                         start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-                        goal = (goal[0]+np.sin(current_angle), goal[1]+np.cos(current_angle))
+                        goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
                         fc.stop()
                     elif move == "right":
                         print("turn right")
@@ -219,7 +219,7 @@ def run():
                         fc.forward(20)
                         time.sleep(1)
                         start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
-                        goal = (goal[0]+np.sin(current_angle), goal[1]+np.cos(current_angle))
+                        goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
                         fc.stop()
                 print("start: ",start)
                 print("goal: ",goal)
