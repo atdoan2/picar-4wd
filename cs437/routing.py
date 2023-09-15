@@ -1,7 +1,6 @@
 import numpy as np
 import time
 import picar_4wd as fc
-
 import heapq
 
 def clear_console():
@@ -43,7 +42,7 @@ def update_map(threshold):
 
     return picar_map
 
-movements = [(0,1, "down"), (0,-1, "up"), (1, 0, "right"), (-1, 0, "left")]
+movements = [(0, 1, "down"), (0, -1, "up"), (1, 0, "right"), (-1, 0, "left")]
 
 def heuristic(current, goal):
     # Calculate the Manhattan distance as the heuristic
@@ -118,56 +117,49 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (100,200)
-    goal = (10,10)
+    start = (100, 200)
+    goal = (10, 10)
 
     while start != goal:
         scan_map = update_map(threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(scan_map)))
-        
-        # for row in buffered_map:
-        #     for elem in row:
-        #         print(elem,end="")
-        #     print()
-        
+
         path, move_directions = astar_search(buffered_map, start, goal)
-        # print(path)
-        # print(move_directions)
         if path:
             moves = list(move_directions.values())
-            moves = moves[0:5] # Limit to 5 moves per scan
+            moves = moves[0:5]  # Limit to 5 moves per scan
             print(moves)
             for move in moves:
                 if move == "up":
                     print("move forward")
-                    fc.forward(1)
+                    fc.forward(20)
                     time.sleep(0.5)
-                    start = (start[0], start[1]+1)
                     fc.stop()
+                    start = (start[0], start[1] - 1)
                 elif move == "down":
                     print("move backward")
-                    fc.backward(1)
+                    fc.backward(20)
                     time.sleep(0.5)
-                    start = (start[0], start[1]-1)
                     fc.stop()
+                    start = (start[0], start[1] + 1)
                 elif move == "left":
                     print("turn left")
                     fc.turn_left(20)
                     time.sleep(1)
-                    fc.forward(1)
+                    fc.forward(20)
                     time.sleep(1)
-                    start = (start[0]-1, start[1])
                     fc.stop()
+                    start = (start[0] - 1, start[1])
                 elif move == "right":
                     print("turn right")
                     fc.turn_right(20)
                     time.sleep(1)
-                    fc.forward(1)
+                    fc.forward(20)
                     time.sleep(1)
-                    start = (start[0]+1, start[1])
                     fc.stop()
-            print("start: ",start)
-            print("goal: ",goal)
+                    start = (start[0] + 1, start[1])
+            print("start: ", start)
+            print("goal: ", goal)
             time.sleep(5)
 
 if __name__ == "__main__":
