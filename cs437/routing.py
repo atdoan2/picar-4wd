@@ -5,14 +5,14 @@ import picar_4wd as fc
 import heapq
 
 # Initialize the map
-map_width = 100
-map_height = 100
+map_width = 200
+map_height = 200
 picar_map = np.zeros((map_width, map_height), dtype=int)
 
 # Initialize picar's positioning as well as its speed for movement/turning
 picar_position = {
-    'x': 0,
-    'y':50,
+    'x': 150,
+    'y':150,
     'angle': 0
 }
 
@@ -48,7 +48,7 @@ def update_car_position(current_position, velocity):
     # Update the current position of the car based on the provided velocity
     current_position['x'] += velocity['linear'] * np.cos(np.radians(current_position['angle']))
     # current_position['y'] += velocity['linear'] * np.sin(np.radians(current_position['angle']))
-    # current_position['angle'] += velocity['turning']
+    current_position['angle'] += velocity['turning']
 
 def update_map(car_position, threshold):
     global current_angle, us_step, picar_map # Declare current_angle and us_step as global variables
@@ -176,6 +176,8 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
+    start = (picar_position['x'],picar_position['y'])
+    goal = (50,map_width/2)
     while True:
         updated_map = update_map(picar_position, threshold)
         
@@ -185,9 +187,6 @@ def run():
             for elem in row:
                 print(elem,end="")
             print()
-
-        start = (map_height-1,map_width/2)
-        goal = (0,map_width/2)
         
         
         if current_angle == 180:
@@ -201,11 +200,15 @@ def run():
                         print("move forward")
                         fc.forward(3)
                         time.sleep(1)
+                        start = (start[0]+3, start[1])
+                        goal = (start[0]+3, start[1])
                         fc.stop()
                     elif move == "down":
                         print("move backward")
                         fc.backward(3)
                         time.sleep(1)
+                        start = (start[0]-3, start[1])
+                        goal = (start[0]-3, start[1])
                         fc.stop()
                     elif move == "left":
                         print("turn left")
@@ -214,6 +217,8 @@ def run():
                         print("move forward")
                         fc.forward(20)
                         time.sleep(1)
+                        start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
+                        goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
                         fc.stop()
                     elif move == "right":
                         print("turn right")
@@ -222,6 +227,8 @@ def run():
                         print("move forward")
                         fc.forward(20)
                         time.sleep(1)
+                        start = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
+                        goal = (start[0]+np.sin(current_angle), start[1]+np.cos(current_angle))
                         fc.stop()
                 time.sleep(5)
 
