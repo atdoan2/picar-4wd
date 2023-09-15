@@ -55,7 +55,7 @@ us_step = servo_step_angle
 def update_local_map():
     
     for x in range(60):
-        local_map = update_map(picar_position, 100)
+        local_map = slam.update_map(picar_position, 100)
     car_x = picar_position['x']
     car_y = picar_position['y']
 
