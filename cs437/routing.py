@@ -174,6 +174,8 @@ def run():
             print("start: ", start)
             print("goal: ", goal)
             time.sleep(5)
+        else:
+            print("")
 
 if __name__ == "__main__":
     try:
