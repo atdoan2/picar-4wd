@@ -122,7 +122,7 @@ def astar_search(grid, start, goal):
     while open_set:
         current_g, current_node = heapq.heappop(open_set)
         
-        if current_node == goal:
+        if current_node == goal and us_step>0:
             # Reconstruct the path if the goal is reached
             path = []
             while current_node in came_from:
@@ -195,7 +195,7 @@ def run():
         
         
         print(current_angle)
-        while current_angle == 95:
+        if current_angle == 95:
 
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
@@ -248,7 +248,7 @@ def run():
                 time.sleep(5)
             else:
                 print("")
-            break
+            
 
         
        # update_car_position(picar_position, velocity)
