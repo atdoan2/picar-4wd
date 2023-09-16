@@ -15,8 +15,8 @@ def update_map(threshold):
         'y': 200
     }
     # Initialize the map
-    scan_width = 100
-    scan_length = 100
+    scan_width = 200
+    scan_length = 200
     picar_map = np.zeros((scan_width, scan_length), dtype=int)
     
     servo_step_angle = 5
