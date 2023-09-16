@@ -216,14 +216,12 @@ def run():
                         fc.forward(.01)
                         time.sleep(0.1)
                         fc.stop()
-                        time.sleep(2)
                         start = (start[0], start[1] - 1)
                     elif move == "down":
                         print("move backward")
                         fc.backward(.01)
                         time.sleep(0.1)
                         fc.stop()
-                        time.sleep(2)
                         start = (start[0], start[1] + 1)
                     elif move == "left":
                         print("turn left")
