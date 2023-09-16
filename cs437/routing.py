@@ -15,8 +15,8 @@ def update_map(threshold):
         'y': 200
     }
     # Initialize the map
-    scan_width = 10
-    scan_length = 10
+    scan_width = 200
+    scan_length = 200
     picar_map = np.zeros((scan_width, scan_length), dtype=int)
     
     servo_step_angle = 5
@@ -117,8 +117,8 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (0,0)
-    goal = (5,5)
+    start = (200, 100)
+    goal = (100, 100)
 
     while start != goal:
         scan_map = update_map(threshold)
