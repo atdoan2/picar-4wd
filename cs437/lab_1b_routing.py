@@ -11,7 +11,7 @@ picar_map = np.zeros((map_width, map_height), dtype=int)
 
 # Initialize picar's positioning as well as its speed for movement/turning
 picar_position = {
-    'x': 100,
+    'x': 0,
     'y':50,
     'angle': 0
 }
@@ -52,38 +52,47 @@ def update_car_position(current_position, velocity):
     # current_position['angle'] += velocity['turning']
 
 
-def update_map(threshold):
-    # Initialize picar's positioning as well as its speed for movement/turning
-    picar_position = {
-        'x': 100,
-        'y': 50
-    }
-    # Initialize the map
-    scan_width = 100
-    scan_length = 100
-    picar_map = np.zeros((scan_width, scan_length), dtype=int)
-    
-    servo_step_angle = 5
-    current_angle = -180
-    us_step = servo_step_angle
+def update_map(car_position, threshold):
+    global current_angle, us_step, picar_map # Declare current_angle and us_step as global variables
+    # for angle in range(-181, 181, servo_step_angle):  # Rotate the servo between 0 and 180 degrees at 5 degree increments
+    # Get the distance reading from the ultrasonic sensor
+    distance = fc.get_distance_at(current_angle)
 
-    while current_angle <= 180:
-        distance = fc.get_distance_at(current_angle)
+    # Use distance with the radian to calculate the x and y coordinates of the detected object
+    angle_rad = np.radians(current_angle)
+    x = int(car_position['x'] + distance * np.cos(angle_rad))
+    y = int(car_position['y'] + distance * np.sin(angle_rad))
 
-        # Use distance with the radian to calculate the x and y coordinates of the detected object
-        angle_rad = np.radians(current_angle)
-        x = int(picar_position['x'] + distance * np.cos(angle_rad))
-        y = int(picar_position['y'] + distance * np.sin(angle_rad))
+    # Make sure x and y values are within the coordinate map that's defined
+    if 0 <= x < map_width and 0 <= y < map_height:
+        # If the distance is below the threshold, mark the cell as an obstacle
+        if distance <= threshold:
+            picar_map[-x, -y] = 1
 
-        # Make sure x and y values are within the coordinate map that's defined
-        if 0 <= x < scan_width and 0 <= y < scan_length:
-            # If the distance is below the threshold, mark the cell as an obstacle
-            if distance <= threshold:
-                picar_map[y, x] = 1
+    # Increment the servo angle by us_step
+    current_angle += us_step
 
-        # Increment the servo angle by us_step
-        current_angle += us_step
+    # Check if the servo angle has reached the limits
+    if current_angle >= 180:
+        current_angle = 180
+        us_step = -servo_step_angle  # Reverse direction
+         # Clear the map at the beginning of each scan
+        picar_map = np.zeros((map_width, map_height), dtype=int)
+        time.sleep(1)
+    elif current_angle <= -180:
+        current_angle = -180
+        us_step = servo_step_angle  # Reverse direction
+         # Clear the map at the beginning of each scan
+        #picar_map = np.zeros((map_width, map_height), dtype=int)
+       # fc.forward(velocity['linear'])
+        time.sleep(1)
+        #fc.stop()
+        #time.sleep(1)
+        #update_car_position(picar_position, velocity)
 
+    # Clear the console and print the current state of the map and robot's pose
+    clear_console()
+    #print_map(picar_map, picar_position)
     return picar_map
 
 
@@ -126,45 +135,24 @@ def astar_search(grid, start, goal):
         closed_set.add(current_node)
         
         for dr, dc, direction in movements:
-            r, c = int(current_node[0] + dr), int(current_node[1] + dc)
+            r, c = int(current_node[0] + dr), (current_node[1] + dc)
             neighbor = (r, c)
             
-            if 0 <= r < rows and 0 <= c < cols:
-                if grid[r][c] != 1 and neighbor not in closed_set:
-                    tentative_g_score = g_score[current_node] + 1
+            if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1 and neighbor not in closed_set:
+                tentative_g_score = g_score[current_node] + 1
+                
+                if tentative_g_score < g_score.get(neighbor, float('inf')):
+                    came_from[neighbor] = current_node
+                    g_score[neighbor] = tentative_g_score
+                    f_score = tentative_g_score + heuristic(neighbor, goal)
+                    heapq.heappush(open_set, (f_score, neighbor))
                     
-                    if tentative_g_score < g_score.get(neighbor, float('inf')):
-                        came_from[neighbor] = current_node
-                        g_score[neighbor] = tentative_g_score
-                        f_score = tentative_g_score + heuristic(neighbor, goal)
-                        heapq.heappush(open_set, (f_score, neighbor))
-                        
-                        # Store the move direction
-                        move_directions[neighbor] = direction
-                else:
-                    # Obstacle detected, implement logic to navigate around it
-                    # Calculate an alternative direction based on obstacle location
-                    alternative_direction = None
-                    
-                    # Example: If obstacle is to the left, move right
-                    if c < current_node[1]:
-                        alternative_direction = "right"
-                    # Example: If obstacle is above, move down
-                    elif r < current_node[0]:
-                        alternative_direction = "down"
-                    # Example: If obstacle is below, move up
-                    elif r > current_node[0]:
-                        alternative_direction = "up"
-                    # Example: If obstacle is to the right, move left
-                    elif c > current_node[1]:
-                        alternative_direction = "left"
-                    
-                    if alternative_direction:
-                        move_directions[current_node] = alternative_direction
-                        print(f"Obstacle detected at ({r}, {c}). Navigating around.")
+                    # Store the move direction
+                    move_directions[neighbor] = direction
+           
+    
     
     return None, None  # If no path is found
-
 
 def add_buffer(grid):
     rows, cols = len(grid), len(grid[0])
@@ -187,70 +175,83 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (95,50)
-    goal = (90,10)    
+    start = (95,57)
+    goal = (50,50)
+    while True:
+        updated_map = update_map(picar_position, threshold)
+        
+        buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
+        for i in range(len(buffered_map)):
+            for j in range(i):
+                if i>=97:
+                    buffered_map[i][j]=0
+        buffered_map[start[0]][start[1]] = 5
 
-    while start != goal:
-        updated_map = update_map(threshold)
-
-        for row in updated_map:
+        for row in buffered_map:
             for elem in row:
                 print(elem,end="")
             print()
-        moves = []
-        path, move_directions = astar_search(updated_map, start, goal)
-        if path:
-            # print("Path found:", path)
-            # print("Moves:")
-            for position in path:
-                direction = move_directions.get(position)
-                if direction:
-                    moves.append(direction)
 
-            # moves = moves[0:10] # Limit to 5 moves per scan
-            print(moves)
-            for move in moves:
-                if move == "up":
-                    print("move forward")
-                    fc.forward(.01)
-                    time.sleep(0.1)
-                    fc.stop()
-                    time.sleep(2)
-                    start = (start[0], start[1] - 1)
-                elif move == "down":
-                    print("move backward")
-                    fc.backward(.01)
-                    time.sleep(0.1)
-                    fc.stop()
-                    time.sleep(2)
-                    start = (start[0], start[1] + 1)
-                elif move == "left":
-                    print("turn left")
-                    fc.turn_left(170)
-                    time.sleep(1.0)
-                    fc.forward(0.01)
-                    time.sleep(0.1)
-                    fc.turn_right(170)
-                    time.sleep(1.0)
-                    fc.stop()
-                    time.sleep(2)
-                    start = (start[0] - 1, start[1])
-                elif move == "right":
-                    print("turn right")
-                    fc.turn_right(170)
-                    time.sleep(1.0)
-                    fc.forward(0.01)
-                    time.sleep(0.1)
-                    fc.turn_left(170)
-                    time.sleep(1.0)
-                    fc.stop()
-                    time.sleep(2)
-                    start = (start[0] + 1, start[1])
-            print("start: ", start)
-            print("goal: ", goal)
-            time.sleep(5)
-        else:
-            print("No path found")
+        
+        
+        
+        print(current_angle)
+        if (current_angle == 95 and us_step>0):
+
+            moves = []
+            path, move_directions = astar_search(buffered_map, start, goal)
+            if path:
+                # print("Path found:", path)
+                # print("Moves:")
+                for position in path:
+                    direction = move_directions.get(position)
+                    if direction:
+                        moves.append(direction)
+
+                moves = moves[0:5] # Limit to 5 moves per scan
+                # print(moves)
+                for move in moves:
+                    if move == "up":
+                        print("move forward")
+                        fc.forward(.01)
+                        time.sleep(0.1)
+                        fc.stop()
+                        time.sleep(2)
+                        start = (start[0], start[1] - 1)
+                    elif move == "down":
+                        print("move backward")
+                        fc.backward(.01)
+                        time.sleep(0.1)
+                        fc.stop()
+                        time.sleep(2)
+                        start = (start[0], start[1] + 1)
+                    elif move == "left":
+                        print("turn left")
+                        fc.turn_left(500)
+                        time.sleep(3.0)
+                        fc.forward(1)
+                        time.sleep(1)
+                        fc.turn_right(100)
+                        time.sleep(1.0)
+                        fc.stop()
+                        time.sleep(2)
+                        start = (start[0] - 1, start[1])
+                    elif move == "right":
+                        print("turn right")
+                        fc.turn_right(100)
+                        time.sleep(1.0)
+                        fc.forward(1)
+                        time.sleep(1)
+                        fc.turn_left(500)
+                        time.sleep(3)
+                        fc.stop()
+                        time.sleep(2)
+                        start = (start[0] + 1, start[1])
+                print("start: ", start)
+                print("goal: ", goal)
+                time.sleep(5)
+            else:
+                print("No path found")
             
 
         
