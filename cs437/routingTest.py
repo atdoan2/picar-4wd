@@ -51,21 +51,6 @@ def update_car_position(current_position, velocity):
     current_position['y'] += velocity['linear'] * np.sin(np.radians(current_position['angle']))
     # current_position['angle'] += velocity['turning']
 
-def update_local_map(local_map):
-
-    update_car_position(picar_position, velocity)
-
-    car_x = picar_position['x']
-    car_y = picar_position['y']
-
-
-    
-    #buffered_local_map = add_buffer(add_buffer(add_buffer(local_map)))
-    
-    print_map(local_map, picar_position)
-    #print_map(buffered_local_map, picar_position)
-
-
 
 def update_map(car_position, threshold):
     global current_angle, us_step, picar_map # Declare current_angle and us_step as global variables
@@ -82,7 +67,7 @@ def update_map(car_position, threshold):
     if 0 <= x < map_width and 0 <= y < map_height:
         # If the distance is below the threshold, mark the cell as an obstacle
         if distance <= threshold:
-            picar_map[y, x] = 1
+            picar_map[x, y] = 1
 
     # Increment the servo angle by us_step
     current_angle += us_step
@@ -186,15 +171,6 @@ def add_buffer(grid):
                         new_grid[nr][nc] = 1
 
     return new_grid
-
-
-
-def test():
-    for x in range(60):
-        local_map = update_map(picar_position, 100)
-        
-    while True:
-        update_local_map(local_map)
 
 # SLAM with ultrasonic sensor
 def run():
