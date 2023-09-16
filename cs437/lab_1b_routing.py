@@ -11,8 +11,8 @@ picar_map = np.zeros((map_width, map_height), dtype=int)
 
 # Initialize picar's positioning as well as its speed for movement/turning
 picar_position = {
-    'x':55,
-    'y':90,
+    'x': 0,
+    'y':50,
     'angle': 0
 }
 
@@ -63,12 +63,11 @@ def update_map(car_position, threshold):
     x = int(car_position['x'] + distance * np.cos(angle_rad))
     y = int(car_position['y'] + distance * np.sin(angle_rad))
 
-    picar_map = np.zeros((map_width, map_height), dtype=int) 
-       # Make sure x and y values are within the coordinate map that's defined
+    # Make sure x and y values are within the coordinate map that's defined
     if 0 <= x < map_width and 0 <= y < map_height:
         # If the distance is below the threshold, mark the cell as an obstacle
         if distance <= threshold:
-            picar_map[y, x] = 1
+            picar_map[-x, -y] = 1
 
     # Increment the servo angle by us_step
     current_angle += us_step
@@ -78,7 +77,7 @@ def update_map(car_position, threshold):
         current_angle = 180
         us_step = -servo_step_angle  # Reverse direction
          # Clear the map at the beginning of each scan
-        #picar_map = np.zeros((map_width, map_height), dtype=int)
+        picar_map = np.zeros((map_width, map_height), dtype=int)
         time.sleep(1)
     elif current_angle <= -180:
         current_angle = -180
@@ -166,7 +165,7 @@ def add_buffer(grid):
                 new_grid[r][c] = 1
 
                 # Set neighboring cells to 1 (within bounds)
-                for dr, dc in [(1, 0), (-1, 0),(0,1),(0,-1)]:
+                for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < rows and 0 <= nc < cols:
                         new_grid[nr][nc] = 1
@@ -176,20 +175,15 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (90,55)
+    start = (95,57)
     goal = (50,50)
-    
-    while start != goal:
-        picar_position={
-        'x' : start[1],
-        'y' : start[0]
-    }
+    while True:
         updated_map = update_map(picar_position, threshold)
         
-        buffered_map = add_buffer(add_buffer(updated_map))
+        buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         for i in range(len(buffered_map)):
             for j in range(i):
-                if i>=start[0]:
+                if i>=97:
                     buffered_map[i][j]=0
         buffered_map[start[0]][start[1]] = 5
 
@@ -260,6 +254,7 @@ def run():
                 print("start: ", start)
                 print("goal: ", goal)
                 time.sleep(3)
+
             else:
                 print("No path found")
             
