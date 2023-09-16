@@ -138,7 +138,7 @@ def astar_search(grid, start, goal):
             r, c = int(current_node[0] + dr), (current_node[1] + dc)
             neighbor = (r, c)
             
-            print(grid[r,c])
+            print(grid[r][c])
             
             if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1 and neighbor not in closed_set:
                 tentative_g_score = g_score[current_node] + 1
