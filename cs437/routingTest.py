@@ -194,7 +194,7 @@ def run():
         goal = (0,map_width/2)
         
         
-        if current_angle == 0:
+        if current_angle == 50:
 
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
