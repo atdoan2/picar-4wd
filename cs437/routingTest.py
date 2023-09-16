@@ -172,10 +172,7 @@ def astar_search(grid, start, goal):
                         print(f"Obstacle detected at ({r}, {c}). Navigating around.")
     
     
-    if path != None:
-        return path, move_directions
-    else:
-        return None, None  # If no path is found
+    return None, None  # If no path is found
 
 def add_buffer(grid):
     rows, cols = len(grid), len(grid[0])
