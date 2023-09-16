@@ -180,7 +180,7 @@ def run():
     while True:
         updated_map = update_map(picar_position, threshold)
         
-        buffered_map = add_buffer(updated_map)
+        buffered_map = (updated_map)
         for i in range(len(buffered_map)):
             for j in range(i):
                 if i>=start[0]:
