@@ -67,7 +67,7 @@ def update_map(car_position, threshold):
     if 0 <= x < map_width and 0 <= y < map_height:
         # If the distance is below the threshold, mark the cell as an obstacle
         if distance <= threshold:
-            picar_map[x, y] = 1
+            picar_map[-x, -y] = 1
 
     # Increment the servo angle by us_step
     current_angle += us_step
@@ -130,30 +130,31 @@ def astar_search(grid, start, goal):
                 current_node = came_from[current_node]
             path.append(start)
             path = path[::-1]  # Return the path in the correct order
-            # return path, move_directions
+            return path, move_directions
         
         closed_set.add(current_node)
         
         for dr, dc, direction in movements:
-            r, c = int(current_node[0] + dr), (current_node[1] + dc)
+            r, c = int(current_node[0] + dr), int(current_node[1] + dc)
             neighbor = (r, c)
             
-            if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1 and neighbor not in closed_set:
-                tentative_g_score = g_score[current_node] + 1
-                
-                if tentative_g_score < g_score.get(neighbor, float('inf')):
-                    came_from[neighbor] = current_node
-                    g_score[neighbor] = tentative_g_score
-                    f_score = tentative_g_score + heuristic(neighbor, goal)
-                    heapq.heappush(open_set, (f_score, neighbor))
+            if 0 <= r < rows and 0 <= c < cols:
+                if grid[r][c] != 1 and neighbor not in closed_set:
+                    tentative_g_score = g_score[current_node] + 1
                     
-                    # Store the move direction
-                    move_directions[neighbor] = direction
+                    if tentative_g_score < g_score.get(neighbor, float('inf')):
+                        came_from[neighbor] = current_node
+                        g_score[neighbor] = tentative_g_score
+                        f_score = tentative_g_score + heuristic(neighbor, goal)
+                        heapq.heappush(open_set, (f_score, neighbor))
+                        
+                        # Store the move direction
+                        move_directions[neighbor] = direction
+                else:
+                    print(f"Obstacle detected at ({r}, {c})")
     
-    if path != None:
-        return path, move_directions
-    else:
-        return None, None  # If no path is found
+    return None, None  # If no path is found
+
 
 def add_buffer(grid):
     rows, cols = len(grid), len(grid[0])
