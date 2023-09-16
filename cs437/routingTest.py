@@ -186,7 +186,7 @@ def run():
             for j in range(i):
                 if i>=97:
                     buffered_map[i][j]=0
-        buffered_map[int(map_height-1)][int(map_width/2)] = 5
+        buffered_map[start[0]][start[1]] = 5
 
         for row in buffered_map:
             for elem in row:
