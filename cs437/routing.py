@@ -28,8 +28,8 @@ def update_map(threshold):
 
         # Use distance with the radian to calculate the x and y coordinates of the detected object
         angle_rad = np.radians(current_angle)
-        y = int(picar_position['x'] + distance * np.cos(angle_rad))
-        x = int(picar_position['y'] + distance * np.sin(angle_rad))
+        x = int(picar_position['x'] + distance * np.cos(angle_rad))
+        y = int(picar_position['y'] + distance * np.sin(angle_rad))
 
         # Make sure x and y values are within the coordinate map that's defined
         if 0 <= x < scan_width and 0 <= y < scan_length:
@@ -42,7 +42,7 @@ def update_map(threshold):
 
     return picar_map
 
-movements = [(0, 1, "down"), (0, -1, "up"), (1, 0, "right"), (-1, 0, "left")]
+movements = [(0, 1, "right"), (0, -1, "left"), (1, 0, "down"), (-1, 0, "up")]
 
 def heuristic(current, goal):
     # Calculate the Manhattan distance as the heuristic
@@ -118,7 +118,7 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 15  # Set threshold (can adjust as needed)
-    start = (15, 29)
+    start = (29, 15)
     goal = (15, 15)
 
     while start != goal:
