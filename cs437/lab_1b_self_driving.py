@@ -1,7 +1,7 @@
 import numpy as np
 import time
 import picar_4wd as fc
-from object_detection import lab_1b_detect as detect
+from object_detection import lab_1b_self_drive_pic as detect
 
 import heapq
 
