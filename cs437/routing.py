@@ -49,6 +49,7 @@ def heuristic(current, goal):
     return abs(current[0] - goal[0]) + abs(current[1] - goal[1])
 
 def astar_search(grid, start, goal):
+    grid = grid
     rows, cols = len(grid), len(grid[0])
     open_set = []  # Priority queue of nodes to be evaluated
     closed_set = set()  # Set of nodes already evaluated
