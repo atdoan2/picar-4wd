@@ -181,7 +181,11 @@ def run():
         'x' : start[1],
         'y' : start[0]
     }
-    while True:
+    while start != goal:
+        picar_position={
+        'x' : start[1],
+        'y' : start[0]
+    }
         updated_map = update_map(picar_position, threshold)
         
         buffered_map = add_buffer(add_buffer(updated_map))
