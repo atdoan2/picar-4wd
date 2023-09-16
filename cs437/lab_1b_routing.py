@@ -225,6 +225,8 @@ def run():
                         start = (start[0], start[1] + 1)
                     elif move == "left":
                         print("turn left")
+                        fc.backward(1)
+                        time.sleep(1)
                         fc.turn_left(500)
                         time.sleep(3.0)
                         fc.stop()
@@ -236,6 +238,8 @@ def run():
                         start = (start[0] - 1, start[1])
                     elif move == "right":
                         print("turn right")
+                        fc.backward(1)
+                        time.sleep(1)
                         fc.turn_right(100)
                         time.sleep(1.0)
                         fc.forward(1)
@@ -247,7 +251,6 @@ def run():
                         start = (start[0] + 1, start[1])
                 print("start: ", start)
                 print("goal: ", goal)
-                time.sleep(1)
             else:
                 print("No path found")
             
