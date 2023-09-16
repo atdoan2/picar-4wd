@@ -67,7 +67,7 @@ def update_map(car_position, threshold):
     if 0 <= x < map_width and 0 <= y < map_height:
         # If the distance is below the threshold, mark the cell as an obstacle
         if distance <= threshold:
-            picar_map[-x, -y] = 1
+            picar_map[x, y] = 1
 
     # Increment the servo angle by us_step
     current_angle += us_step
@@ -135,7 +135,6 @@ def astar_search(grid, start, goal):
         closed_set.add(current_node)
         
         for dr, dc, direction in movements:
-            # print(current_node[0], current_node[1])
             r, c = int(current_node[0] + dr), (current_node[1] + dc)
             neighbor = (r, c)
             
