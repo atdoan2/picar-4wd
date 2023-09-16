@@ -3,6 +3,7 @@ import sys
 import tty
 import termios
 import asyncio
+import time
 
 power_val = 50
 key = 'status'
@@ -43,7 +44,16 @@ def Keyborad_control():
         if key=='w':
             fc.forward(power_val)
         elif key=='a':
-            fc.turn_left(power_val)
+            print("turn left")
+            fc.turn_left(170)
+            time.sleep(1.0)
+            fc.stop()
+            fc.forward(1)
+            time.sleep(0.1)
+            fc.turn_right(170)
+            time.sleep(1.0)
+            fc.stop()
+            time.sleep(2)
         elif key=='s':
             fc.backward(power_val)
         elif key=='d':
