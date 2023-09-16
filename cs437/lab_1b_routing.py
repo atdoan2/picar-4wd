@@ -177,10 +177,7 @@ def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (90,55)
     goal = (50,50)
-    picar_position={
-        'x' : start[1],
-        'y' : start[0]
-    }
+    
     while start != goal:
         picar_position={
         'x' : start[1],
