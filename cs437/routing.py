@@ -11,12 +11,12 @@ def clear_console():
 def update_map(threshold):
     # Initialize picar's positioning as well as its speed for movement/turning
     picar_position = {
-        'x': 50,
-        'y': 100
+        'x': 5,
+        'y': 10
     }
     # Initialize the map
-    scan_width = 100
-    scan_length = 100
+    scan_width = 10
+    scan_length = 10
     picar_map = np.zeros((scan_width, scan_length), dtype=int)
     
     servo_step_angle = 5
@@ -116,9 +116,9 @@ def add_buffer(grid):
 
 # SLAM with ultrasonic sensor
 def run():
-    threshold = 50  # Set threshold (can adjust as needed)
-    start = (50, 100)
-    goal = (50, 50)
+    threshold = 3  # Set threshold (can adjust as needed)
+    start = (5, 10)
+    goal = (5, 5)
 
     while start != goal:
         scan_map = update_map(threshold)
