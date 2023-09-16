@@ -194,6 +194,7 @@ def run():
         goal = (0,map_width/2)
         
         
+        print(current_angle)
         if current_angle == 179:
 
             moves = []
