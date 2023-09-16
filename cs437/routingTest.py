@@ -195,7 +195,7 @@ def run():
         
         
         print(current_angle)
-        if current_angle == 0:
+        if current_angle == 95:
 
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
