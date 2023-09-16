@@ -192,13 +192,13 @@ def run():
 
     while start != goal:
         updated_map = update_map(threshold)
-        buffered_map = add_buffer(updated_map)
-        for row in buffered_map:
+
+        for row in updated_map:
             for elem in row:
                 print(elem,end="")
             print()
         moves = []
-        path, move_directions = astar_search(buffered_map, start, goal)
+        path, move_directions = astar_search(updated_map, start, goal)
         if path:
             # print("Path found:", path)
             # print("Moves:")
