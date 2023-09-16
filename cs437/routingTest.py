@@ -130,12 +130,12 @@ def astar_search(grid, start, goal):
                 current_node = came_from[current_node]
             path.append(start)
             path = path[::-1]  # Return the path in the correct order
-            return path, move_directions
+            # return path, move_directions
         
         closed_set.add(current_node)
         
         for dr, dc, direction in movements:
-            print(current_node[0], current_node[1])
+            # print(current_node[0], current_node[1])
             r, c = int(current_node[0] + dr), (current_node[1] + dc)
             neighbor = (r, c)
             
@@ -151,7 +151,10 @@ def astar_search(grid, start, goal):
                     # Store the move direction
                     move_directions[neighbor] = direction
     
-    return None, None  # If no path is found
+    if path != None:
+        return path, move_directions
+    else:
+        return None, None  # If no path is found
 
 def add_buffer(grid):
     rows, cols = len(grid), len(grid[0])
