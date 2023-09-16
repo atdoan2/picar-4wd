@@ -248,6 +248,7 @@ def run():
                 time.sleep(5)
             else:
                 print("")
+            break
 
         
        # update_car_position(picar_position, velocity)
