@@ -225,7 +225,7 @@ def run():
                         start = (start[0], start[1] + 1)
                     elif move == "left":
                         print("turn left")
-                        fc.turn_left(500)
+                        fc.turn_left(1000)
                         time.sleep(3.0)
                         """fc.forward(1)
                         time.sleep(1)
