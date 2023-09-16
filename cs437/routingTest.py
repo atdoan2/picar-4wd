@@ -181,7 +181,7 @@ def run():
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         buffered_map[int(map_height-1)][int(map_width/2)] = 5
         for i in range(len(buffered_map)):
-            for j in i:
+            for j in range(i):
                 if buffered_map.index(i)>=97:
                     buffered_map[i][j]=2
         
