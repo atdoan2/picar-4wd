@@ -4,7 +4,7 @@ import time
 
 # Constants
 travel_speed = 3
-turn_speed = 100
+turn_speed = 150
 distance_threshold = 45 # cm
 
 # Function to get left or right direction randomly
