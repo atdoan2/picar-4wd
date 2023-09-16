@@ -130,7 +130,7 @@ def astar_search(grid, start, goal):
                 current_node = came_from[current_node]
             path.append(start)
             path = path[::-1]  # Return the path in the correct order
-            # return path, move_directions
+            return path, move_directions
         
         closed_set.add(current_node)
         
