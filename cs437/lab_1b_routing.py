@@ -228,8 +228,8 @@ def run():
                     elif move == "left":
                         print("turn left")
                         fc.turn_left(500)
-                        """time.sleep(3.0)
-                        fc.forward(1)
+                        time.sleep(3.0)
+                        """fc.forward(1)
                         time.sleep(1)
                         fc.turn_right(100)
                         time.sleep(1.0)"""
