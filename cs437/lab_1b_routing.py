@@ -165,7 +165,7 @@ def add_buffer(grid):
                 new_grid[r][c] = 1
 
                 # Set neighboring cells to 1 (within bounds)
-                for dr, dc in [(1, 0), (-1, 0)]:
+                for dr, dc in [(1, 0), (-1, 0),(0,1)]:
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < rows and 0 <= nc < cols:
                         new_grid[nr][nc] = 1
