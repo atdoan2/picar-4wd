@@ -223,15 +223,15 @@ def run():
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
             if path:
-                # print("Path found:", path)
-                # print("Moves:")
+                print("Path found:", path)
+                print("Moves:")
                 for position in path:
                     direction = move_directions.get(position)
                     if direction:
                         moves.append(direction)
 
                 moves = moves[0:5] # Limit to 5 moves per scan
-                # print(moves)
+                print(moves)
                 for move in moves:
                     if move == "up":
                         print("move forward")
