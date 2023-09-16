@@ -232,7 +232,7 @@ def run():
                         time.sleep(1)
                         fc.forward(1)
                         time.sleep(1)
-                        fc.turn_right(100)
+                        fc.turn_right(75)
                         time.sleep(1.0)
                         fc.stop()
                         time.sleep(2)
