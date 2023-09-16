@@ -52,47 +52,38 @@ def update_car_position(current_position, velocity):
     # current_position['angle'] += velocity['turning']
 
 
-def update_map(car_position, threshold):
-    global current_angle, us_step, picar_map # Declare current_angle and us_step as global variables
-    # for angle in range(-181, 181, servo_step_angle):  # Rotate the servo between 0 and 180 degrees at 5 degree increments
-    # Get the distance reading from the ultrasonic sensor
-    distance = fc.get_distance_at(current_angle)
+def update_map(threshold):
+    # Initialize picar's positioning as well as its speed for movement/turning
+    picar_position = {
+        'x': 15,
+        'y': 30
+    }
+    # Initialize the map
+    scan_width = 30
+    scan_length = 30
+    picar_map = np.zeros((scan_width, scan_length), dtype=int)
+    
+    servo_step_angle = 5
+    current_angle = -180
+    us_step = servo_step_angle
 
-    # Use distance with the radian to calculate the x and y coordinates of the detected object
-    angle_rad = np.radians(current_angle)
-    x = int(car_position['x'] + distance * np.cos(angle_rad))
-    y = int(car_position['y'] + distance * np.sin(angle_rad))
+    while current_angle <= 180:
+        distance = fc.get_distance_at(current_angle)
 
-    # Make sure x and y values are within the coordinate map that's defined
-    if 0 <= x < map_width and 0 <= y < map_height:
-        # If the distance is below the threshold, mark the cell as an obstacle
-        if distance <= threshold:
-            picar_map[-x, -y] = 1
+        # Use distance with the radian to calculate the x and y coordinates of the detected object
+        angle_rad = np.radians(current_angle)
+        x = int(picar_position['x'] + distance * np.cos(angle_rad))
+        y = int(picar_position['y'] + distance * np.sin(angle_rad))
 
-    # Increment the servo angle by us_step
-    current_angle += us_step
+        # Make sure x and y values are within the coordinate map that's defined
+        if 0 <= x < scan_width and 0 <= y < scan_length:
+            # If the distance is below the threshold, mark the cell as an obstacle
+            if 5 <= distance <= threshold:
+                picar_map[y, x] = 1
 
-    # Check if the servo angle has reached the limits
-    if current_angle >= 180:
-        current_angle = 180
-        us_step = -servo_step_angle  # Reverse direction
-         # Clear the map at the beginning of each scan
-        picar_map = np.zeros((map_width, map_height), dtype=int)
-        time.sleep(1)
-    elif current_angle <= -180:
-        current_angle = -180
-        us_step = servo_step_angle  # Reverse direction
-         # Clear the map at the beginning of each scan
-        #picar_map = np.zeros((map_width, map_height), dtype=int)
-       # fc.forward(velocity['linear'])
-        time.sleep(1)
-        #fc.stop()
-        #time.sleep(1)
-        #update_car_position(picar_position, velocity)
+        # Increment the servo angle by us_step
+        current_angle += us_step
 
-    # Clear the console and print the current state of the map and robot's pose
-    clear_console()
-    #print_map(picar_map, picar_position)
     return picar_map
 
 
