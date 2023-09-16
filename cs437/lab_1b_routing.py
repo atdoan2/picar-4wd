@@ -183,7 +183,7 @@ def run():
         buffered_map = add_buffer(updated_map)
         for i in range(len(buffered_map)):
             for j in range(i):
-                if i>=97:
+                if i>=start[0]:
                     buffered_map[i][j]=0
         buffered_map[start[0]][start[1]] = 5
 
