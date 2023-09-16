@@ -11,8 +11,8 @@ picar_map = np.zeros((map_width, map_height), dtype=int)
 
 # Initialize picar's positioning as well as its speed for movement/turning
 picar_position = {
-    'x': 0,
-    'y':50,
+    'x':55,
+    'y':90,
     'angle': 0
 }
 
@@ -177,6 +177,10 @@ def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (90,55)
     goal = (50,50)
+    picar_position={
+        'x' : 55,
+        'y' : 90
+    }
     while True:
         updated_map = update_map(picar_position, threshold)
         
