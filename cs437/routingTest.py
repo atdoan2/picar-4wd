@@ -183,7 +183,7 @@ def run():
         for i in range(len(buffered_map)):
             for j in range(i):
                 if i>=97:
-                    buffered_map[i][j]=2
+                    buffered_map[i][j]=0
         
         for row in buffered_map:
             for elem in row:
