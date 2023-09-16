@@ -165,7 +165,7 @@ def add_buffer(grid):
                 new_grid[r][c] = 1
 
                 # Set neighboring cells to 1 (within bounds)
-                for dr, dc in [(1, 0), (-1, 0),(0,1)]:
+                for dr, dc in [(1, 0), (-1, 0),(1,0)]:
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < rows and 0 <= nc < cols:
                         new_grid[nr][nc] = 1
@@ -175,7 +175,7 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (90,90)
+    start = (90,60)
     goal = (50,50)
     while True:
         updated_map = update_map(picar_position, threshold)
