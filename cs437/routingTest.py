@@ -214,6 +214,8 @@ def run():
         
         
         if current_angle == 180:
+
+            moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
             if path:
                 print("Path found:", path)
