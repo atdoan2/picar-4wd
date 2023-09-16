@@ -189,7 +189,7 @@ def run():
         updated_map = update_map(threshold)
         
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
-        buffered_map[int(map_height-1)][int(map_width/2)] = 5
+        # buffered_map[int(map_height-1)][int(map_width/2)] = 5
         for i in range(len(buffered_map)):
             for j in range(i):
                 if i>=97:
