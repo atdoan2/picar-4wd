@@ -208,7 +208,7 @@ def run():
                     moves.append(direction)
 
             # moves = moves[0:10] # Limit to 5 moves per scan
-            # print(moves)
+            print(moves)
             for move in moves:
                 if move == "up":
                     print("move forward")
