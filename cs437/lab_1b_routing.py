@@ -226,10 +226,10 @@ def run():
                     elif move == "left":
                         print("turn left")
                         fc.backward(1)
-                        time.sleep(1)
+                        time.sleep(3)
                         fc.stop()
                         fc.turn_left(500)
-                        time.sleep(5.0)
+                        time.sleep(3.0)
                         fc.forward(1)
                         time.sleep(1)
                         fc.turn_right(100)
