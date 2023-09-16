@@ -117,7 +117,7 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (200, 100)
+    start = (100, 200)
     goal = (100, 100)
 
     while start != goal:
