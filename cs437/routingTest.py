@@ -180,7 +180,7 @@ def run():
         
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         buffered_map[int(map_height-1)][int(map_width/2)] = 5
-        buffered_map[map_height-1:][:] = 5
+        buffered_map[map_height-1] = 2
         
         for row in buffered_map:
             for elem in row:
