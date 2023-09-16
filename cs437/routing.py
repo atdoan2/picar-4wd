@@ -140,24 +140,24 @@ def run():
                 if direction:
                     moves.append(direction)
 
-            moves = moves[0:1] # Limit to 5 moves per scan
+            moves = moves[0:10] # Limit to 5 moves per scan
             print(moves)
             for move in moves:
                 if move == "up":
                     print("move forward")
-                    fc.forward(1)
+                    fc.forward(.1)
                     time.sleep(0.1)
                     fc.stop()
                     start = (start[0], start[1] - 1)
                 elif move == "down":
                     print("move backward")
-                    fc.backward(1)
+                    fc.backward(.1)
                     time.sleep(0.1)
                     fc.stop()
                     start = (start[0], start[1] + 1)
                 elif move == "left":
                     print("turn left")
-                    fc.turn_left(1)
+                    fc.turn_left(.1)
                     time.sleep(0.1)
                     fc.forward(1)
                     time.sleep(0.1)
@@ -165,7 +165,7 @@ def run():
                     start = (start[0] - 1, start[1])
                 elif move == "right":
                     print("turn right")
-                    fc.turn_right(1)
+                    fc.turn_right(.1)
                     time.sleep(0.1)
                     fc.forward(1)
                     time.sleep(0.1)
