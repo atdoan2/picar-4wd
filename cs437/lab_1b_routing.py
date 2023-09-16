@@ -247,7 +247,7 @@ def run():
                         start = (start[0] + 1, start[1])
                 print("start: ", start)
                 print("goal: ", goal)
-                time.sleep(5)
+                time.sleep(1)
             else:
                 print("No path found")
             
