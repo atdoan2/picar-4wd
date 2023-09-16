@@ -185,80 +185,86 @@ def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (100,50)
     goal = (50,50)
-    while True:
+    # while True:
+    #     updated_map = update_map(threshold)
+        
+    #     buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
+    #     # buffered_map[int(map_height-1)][int(map_width/2)] = 5
+    #     for i in range(len(buffered_map)):
+    #         for j in range(i):
+    #             if i>=97:
+    #                 buffered_map[i][j]=0
+        
+    #     for row in buffered_map:
+    #         for elem in row:
+    #             print(elem,end="")
+    #         print()
+
+        
+        
+        
+    #     print(current_angle)
+    while start != goal:
         updated_map = update_map(threshold)
-        
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
-        # buffered_map[int(map_height-1)][int(map_width/2)] = 5
-        for i in range(len(buffered_map)):
-            for j in range(i):
-                if i>=97:
-                    buffered_map[i][j]=0
-        
         for row in buffered_map:
             for elem in row:
                 print(elem,end="")
             print()
+        moves = []
+        path, move_directions = astar_search(buffered_map, start, goal)
+        if path:
+            # print("Path found:", path)
+            # print("Moves:")
+            for position in path:
+                direction = move_directions.get(position)
+                if direction:
+                    moves.append(direction)
 
-        
-        
-        
-        print(current_angle)
-        while start != goal:
-            moves = []
-            path, move_directions = astar_search(buffered_map, start, goal)
-            if path:
-                # print("Path found:", path)
-                # print("Moves:")
-                for position in path:
-                    direction = move_directions.get(position)
-                    if direction:
-                        moves.append(direction)
-
-                moves = moves[0:5] # Limit to 5 moves per scan
-                # print(moves)
-                for move in moves:
-                    if move == "up":
-                        print("move forward")
-                        fc.forward(.01)
-                        time.sleep(0.1)
-                        fc.stop()
-                        time.sleep(2)
-                        start = (start[0], start[1] - 1)
-                    elif move == "down":
-                        print("move backward")
-                        fc.backward(.01)
-                        time.sleep(0.1)
-                        fc.stop()
-                        time.sleep(2)
-                        start = (start[0], start[1] + 1)
-                    elif move == "left":
-                        print("turn left")
-                        fc.turn_left(170)
-                        time.sleep(1.0)
-                        fc.forward(0.01)
-                        time.sleep(0.1)
-                        fc.turn_right(170)
-                        time.sleep(1.0)
-                        fc.stop()
-                        time.sleep(2)
-                        start = (start[0] - 1, start[1])
-                    elif move == "right":
-                        print("turn right")
-                        fc.turn_right(170)
-                        time.sleep(1.0)
-                        fc.forward(0.01)
-                        time.sleep(0.1)
-                        fc.turn_left(170)
-                        time.sleep(1.0)
-                        fc.stop()
-                        time.sleep(2)
-                        start = (start[0] + 1, start[1])
-                print("start: ", start)
-                print("goal: ", goal)
-                time.sleep(5)
-            else:
-                print("No path found")
+            moves = moves[0:5] # Limit to 5 moves per scan
+            # print(moves)
+            for move in moves:
+                if move == "up":
+                    print("move forward")
+                    fc.forward(.01)
+                    time.sleep(0.1)
+                    fc.stop()
+                    time.sleep(2)
+                    start = (start[0], start[1] - 1)
+                elif move == "down":
+                    print("move backward")
+                    fc.backward(.01)
+                    time.sleep(0.1)
+                    fc.stop()
+                    time.sleep(2)
+                    start = (start[0], start[1] + 1)
+                elif move == "left":
+                    print("turn left")
+                    fc.turn_left(170)
+                    time.sleep(1.0)
+                    fc.forward(0.01)
+                    time.sleep(0.1)
+                    fc.turn_right(170)
+                    time.sleep(1.0)
+                    fc.stop()
+                    time.sleep(2)
+                    start = (start[0] - 1, start[1])
+                elif move == "right":
+                    print("turn right")
+                    fc.turn_right(170)
+                    time.sleep(1.0)
+                    fc.forward(0.01)
+                    time.sleep(0.1)
+                    fc.turn_left(170)
+                    time.sleep(1.0)
+                    fc.stop()
+                    time.sleep(2)
+                    start = (start[0] + 1, start[1])
+            print("start: ", start)
+            print("goal: ", goal)
+            time.sleep(5)
+        else:
+            print("No path found")
             
 
         
