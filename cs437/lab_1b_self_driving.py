@@ -260,6 +260,7 @@ import heapq
 
 if __name__ == "__main__":
     try:
-        detect.run('efficientdet_lite0.tflite', int(0), 640, 480, int(4), False)
+        detected_object, percentage = detect.run('efficientdet_lite0.tflite', int(0), 640, 480, int(4), False)
+        print(detected_object, percentage)
     finally:
         fc.stop()
