@@ -82,7 +82,7 @@ grid = [
     [0, 0, 0, 0, 0]
 ]
 
-buffered_grid = add_buffer(add_buffer(grid))
+buffered_grid = add_buffer(grid)
 
 start = (0, 0)
 goal = (4, 4)
