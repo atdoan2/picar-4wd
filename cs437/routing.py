@@ -11,12 +11,12 @@ def clear_console():
 def update_map(threshold):
     # Initialize picar's positioning as well as its speed for movement/turning
     picar_position = {
-        'x': 100,
-        'y': 200
+        'x': 50,
+        'y': 100
     }
     # Initialize the map
-    scan_width = 200
-    scan_length = 200
+    scan_width = 100
+    scan_length = 100
     picar_map = np.zeros((scan_width, scan_length), dtype=int)
     
     servo_step_angle = 5
