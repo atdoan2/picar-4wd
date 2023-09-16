@@ -228,7 +228,7 @@ def run():
                         fc.backward(1)
                         time.sleep(1)
                         fc.stop()
-                        fc.turn_left(100)
+                        fc.turn_left(-100)
                         time.sleep(1)
                         fc.forward(1)
                         time.sleep(1)
