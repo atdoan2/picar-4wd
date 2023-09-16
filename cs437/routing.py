@@ -124,7 +124,7 @@ def run():
     while start != goal:
         scan_map = update_map(threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(add_buffer(add_buffer(add_buffer(scan_map))))))
-        
+        buffered_map[15][30]=5
         for row in buffered_map:
             for elem in row:
                 print(elem,end="")
