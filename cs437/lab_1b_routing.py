@@ -126,41 +126,45 @@ def astar_search(grid, start, goal):
         closed_set.add(current_node)
         
         for dr, dc, direction in movements:
-            r, c = int(current_node[0] + dr), (current_node[1] + dc)
+            r, c = int(current_node[0] + dr), int(current_node[1] + dc)
             neighbor = (r, c)
             
-            if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1 and neighbor not in closed_set:
-                tentative_g_score = g_score[current_node] + 1
-                
-                if tentative_g_score < g_score.get(neighbor, float('inf')):
-                    came_from[neighbor] = current_node
-                    g_score[neighbor] = tentative_g_score
-                    f_score = tentative_g_score + heuristic(neighbor, goal)
-                    heapq.heappush(open_set, (f_score, neighbor))
+            if 0 <= r < rows and 0 <= c < cols:
+                if grid[r][c] != 1 and neighbor not in closed_set:
+                    tentative_g_score = g_score[current_node] + 1
                     
-                    # Store the move direction
-                    move_directions[neighbor] = direction
-            else:
-                alternative_direction = None
-                # Example: If obstacle is to the left, move right
-                if c < current_node[1]:
-                    alternative_direction = "right"
-                # Example: If obstacle is above, move down
-                elif r < current_node[0]:
-                    alternative_direction = "down"
-                # Example: If obstacle is below, move up
-                elif r > current_node[0]:
-                    alternative_direction = "up"
-                # Example: If obstacle is to the right, move left
-                elif c > current_node[1]:
-                    alternative_direction = "left"
-                
-                if alternative_direction:
-                    move_directions[current_node] = alternative_direction
-                    print(f"Obstacle detected at ({r}, {c}). Navigating around.")
+                    if tentative_g_score < g_score.get(neighbor, float('inf')):
+                        came_from[neighbor] = current_node
+                        g_score[neighbor] = tentative_g_score
+                        f_score = tentative_g_score + heuristic(neighbor, goal)
+                        heapq.heappush(open_set, (f_score, neighbor))
+                        
+                        # Store the move direction
+                        move_directions[neighbor] = direction
+                else:
+                    # Obstacle detected, implement logic to navigate around it
+                    # Calculate an alternative direction based on obstacle location
+                    alternative_direction = None
+                    
+                    # Example: If obstacle is to the left, move right
+                    if c < current_node[1]:
+                        alternative_direction = "right"
+                    # Example: If obstacle is above, move down
+                    elif r < current_node[0]:
+                        alternative_direction = "down"
+                    # Example: If obstacle is below, move up
+                    elif r > current_node[0]:
+                        alternative_direction = "up"
+                    # Example: If obstacle is to the right, move left
+                    elif c > current_node[1]:
+                        alternative_direction = "left"
+                    
+                    if alternative_direction:
+                        move_directions[current_node] = alternative_direction
+                        print(f"Obstacle detected at ({r}, {c}). Navigating around.")
     
-
     return None, None  # If no path is found
+
 
 def add_buffer(grid):
     rows, cols = len(grid), len(grid[0])
