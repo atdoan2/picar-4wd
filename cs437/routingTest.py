@@ -247,7 +247,7 @@ def run():
                 print("goal: ", goal)
                 time.sleep(5)
             else:
-                print("")
+                print("No path found")
             
 
         
