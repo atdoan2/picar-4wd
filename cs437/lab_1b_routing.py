@@ -188,7 +188,7 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (100,50)
-    goal = (100,10)    
+    goal = (90,10)    
 
     while start != goal:
         updated_map = update_map(threshold)
