@@ -184,26 +184,8 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (100,50)
-    goal = (50,50)
-    # while True:
-    #     updated_map = update_map(threshold)
-        
-    #     buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
-    #     # buffered_map[int(map_height-1)][int(map_width/2)] = 5
-    #     for i in range(len(buffered_map)):
-    #         for j in range(i):
-    #             if i>=97:
-    #                 buffered_map[i][j]=0
-        
-    #     for row in buffered_map:
-    #         for elem in row:
-    #             print(elem,end="")
-    #         print()
+    goal = (100,10)    
 
-        
-        
-        
-    #     print(current_angle)
     while start != goal:
         updated_map = update_map(threshold)
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
