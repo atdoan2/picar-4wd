@@ -216,13 +216,14 @@ def run():
                         fc.forward(.01)
                         time.sleep(0.1)
                         fc.stop()
-                        time.sleep(3)
+                        time.sleep(2)
                         start = (start[0], start[1] - 1)
                     elif move == "down":
                         print("move backward")
                         fc.backward(.01)
                         time.sleep(0.1)
                         fc.stop()
+                        time.sleep(2)
                         start = (start[0], start[1] + 1)
                     elif move == "left":
                         print("turn left")
@@ -233,6 +234,7 @@ def run():
                         fc.turn_right(170)
                         time.sleep(1.0)
                         fc.stop()
+                        time.sleep(2)
                         start = (start[0] - 1, start[1])
                     elif move == "right":
                         print("turn right")
@@ -243,6 +245,7 @@ def run():
                         fc.turn_left(170)
                         time.sleep(1.0)
                         fc.stop()
+                        time.sleep(2)
                         start = (start[0] + 1, start[1])
                 print("start: ", start)
                 print("goal: ", goal)
