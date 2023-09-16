@@ -165,7 +165,7 @@ def add_buffer(grid):
                 new_grid[r][c] = 1
 
                 # Set neighboring cells to 1 (within bounds)
-                for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                for dr, dc in [(1, 0), (-1, 0), (0, 1)]:
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < rows and 0 <= nc < cols:
                         new_grid[nr][nc] = 1
@@ -180,7 +180,7 @@ def run():
     while True:
         updated_map = update_map(picar_position, threshold)
         
-        buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
+        buffered_map = add_buffer(updated_map)
         for i in range(len(buffered_map)):
             for j in range(i):
                 if i>=97:
