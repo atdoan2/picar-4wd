@@ -63,7 +63,9 @@ def update_map(car_position, threshold):
     x = int(car_position['x'] + distance * np.cos(angle_rad))
     y = int(car_position['y'] + distance * np.sin(angle_rad))
 
-    picar_map = np.zeros((map_width, map_height), dtype=int)    # Make sure x and y values are within the coordinate map that's defined
+    picar_map = np.zeros((map_width, map_height), dtype=int) 
+    picar_map.fill(4)
+       # Make sure x and y values are within the coordinate map that's defined
     if 0 <= x < map_width and 0 <= y < map_height:
         # If the distance is below the threshold, mark the cell as an obstacle
         if distance <= threshold:
