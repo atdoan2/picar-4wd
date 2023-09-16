@@ -118,7 +118,7 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (200, 100)
-    goal = (100, 10)
+    goal = (100, 100)
 
     while start != goal:
         scan_map = update_map(threshold)
