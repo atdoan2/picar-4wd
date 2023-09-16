@@ -55,12 +55,12 @@ def update_car_position(current_position, velocity):
 def update_map(threshold):
     # Initialize picar's positioning as well as its speed for movement/turning
     picar_position = {
-        'x': 15,
-        'y': 30
+        'x': 100,
+        'y': 50
     }
     # Initialize the map
-    scan_width = 30
-    scan_length = 30
+    scan_width = 100
+    scan_length = 100
     picar_map = np.zeros((scan_width, scan_length), dtype=int)
     
     servo_step_angle = 5
