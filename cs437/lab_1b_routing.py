@@ -178,8 +178,8 @@ def run():
     start = (90,55)
     goal = (50,50)
     picar_position={
-        'x' : 55,
-        'y' : 90
+        'x' : 90,
+        'y' : 55
     }
     while True:
         updated_map = update_map(picar_position, threshold)
