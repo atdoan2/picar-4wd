@@ -94,8 +94,29 @@ def astar_search(grid, start, goal):
                     
                     # Store the move direction
                     move_directions[neighbor] = direction
+            else:
+                    # Obstacle detected, implement logic to navigate around it
+                    # Calculate alternative directions based on obstacle location
+                    alternative_directions = []
+                    
+                    # Example: If obstacle is to the left, add "right" as an alternative direction
+                    if c < current_node[1]:
+                        alternative_directions.append("right")
+                    # Example: If obstacle is above, add "down" as an alternative direction
+                    if r < current_node[0]:
+                        alternative_directions.append("down")
+                    # Example: If obstacle is below, add "up" as an alternative direction
+                    if r > current_node[0]:
+                        alternative_directions.append("up")
+                    # Example: If obstacle is to the right, add "left" as an alternative direction
+                    if c > current_node[1]:
+                        alternative_directions.append("left")
+                    
+                    if alternative_directions:
+                        move_directions[current_node] = alternative_directions
+                        print(f"Obstacle detected at ({r}, {c}). Navigating around.")
     
-    return None, None  # If no path is found
+    return None, None  # If no path is found               
 
 def add_buffer(grid):
     rows, cols = len(grid), len(grid[0])

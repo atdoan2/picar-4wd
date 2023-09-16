@@ -130,49 +130,30 @@ def astar_search(grid, start, goal):
                 current_node = came_from[current_node]
             path.append(start)
             path = path[::-1]  # Return the path in the correct order
-            return path, move_directions
+            # return path, move_directions
         
         closed_set.add(current_node)
         
         for dr, dc, direction in movements:
-            r, c = int(current_node[0] + dr), int(current_node[1] + dc)
+            r, c = int(current_node[0] + dr), (current_node[1] + dc)
             neighbor = (r, c)
             
-            if 0 <= r < rows and 0 <= c < cols:
-                if grid[r][c] != 1 and neighbor not in closed_set:
-                    tentative_g_score = g_score[current_node] + 1
+            if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1 and neighbor not in closed_set:
+                tentative_g_score = g_score[current_node] + 1
+                
+                if tentative_g_score < g_score.get(neighbor, float('inf')):
+                    came_from[neighbor] = current_node
+                    g_score[neighbor] = tentative_g_score
+                    f_score = tentative_g_score + heuristic(neighbor, goal)
+                    heapq.heappush(open_set, (f_score, neighbor))
                     
-                    if tentative_g_score < g_score.get(neighbor, float('inf')):
-                        came_from[neighbor] = current_node
-                        g_score[neighbor] = tentative_g_score
-                        f_score = tentative_g_score + heuristic(neighbor, goal)
-                        heapq.heappush(open_set, (f_score, neighbor))
-                        
-                        # Store the move direction
-                        move_directions[neighbor] = direction
-                else:
-                    # Obstacle detected, implement logic to navigate around it
-                    # Calculate alternative directions based on obstacle location
-                    alternative_directions = []
-                    
-                    # Example: If obstacle is to the left, add "right" as an alternative direction
-                    if c < current_node[1]:
-                        alternative_directions.append("right")
-                    # Example: If obstacle is above, add "down" as an alternative direction
-                    if r < current_node[0]:
-                        alternative_directions.append("down")
-                    # Example: If obstacle is below, add "up" as an alternative direction
-                    if r > current_node[0]:
-                        alternative_directions.append("up")
-                    # Example: If obstacle is to the right, add "left" as an alternative direction
-                    if c > current_node[1]:
-                        alternative_directions.append("left")
-                    
-                    if alternative_directions:
-                        move_directions[current_node] = alternative_directions
-                        print(f"Obstacle detected at ({r}, {c}). Navigating around.")
+                    # Store the move direction
+                    move_directions[neighbor] = direction
     
-    return None, None  # If no path is found
+    if path != None:
+        return path, move_directions
+    else:
+        return None, None  # If no path is found
 
 def add_buffer(grid):
     rows, cols = len(grid), len(grid[0])
@@ -196,7 +177,7 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (100,50)
-    goal = (100,10)
+    goal = (50,50)
     while True:
         updated_map = update_map(picar_position, threshold)
         
@@ -221,15 +202,15 @@ def run():
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
             if path:
-                print("Path found:", path)
-                print("Moves:")
+                # print("Path found:", path)
+                # print("Moves:")
                 for position in path:
                     direction = move_directions.get(position)
                     if direction:
                         moves.append(direction)
 
                 moves = moves[0:5] # Limit to 5 moves per scan
-                print(moves)
+                # print(moves)
                 for move in moves:
                     if move == "up":
                         print("move forward")
