@@ -182,7 +182,7 @@ def run():
         buffered_map[int(map_height-1)][int(map_width/2)] = 5
         for row in buffered_map:
             for col in row:
-                if row>=97:
+                if buffered_map.index(row)>=97:
                     buffered_map[row][col] = 2
         
         for row in buffered_map:
