@@ -188,10 +188,10 @@ def run():
                     buffered_map[i][j]=0
         buffered_map[start[0]][start[1]] = 5
 
-        # for row in buffered_map:
-        #     for elem in row:
-        #         print(elem,end="")
-        #     print()
+        for row in buffered_map:
+            for elem in row:
+                print(elem,end="")
+            print()
 
         
         # print(current_angle)
