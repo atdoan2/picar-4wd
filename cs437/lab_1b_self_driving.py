@@ -199,7 +199,7 @@ def run():
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
             detected_objects = detect.run('efficientdet_lite0.tflite', int(0), 640, 480, int(4), False)
-            for detection in detected_objects.detections:
+            for detection in detected_objects:
                 category = detection.categories[0]
                 category_name = category.category_name
                 probability = round(category.score, 2)
