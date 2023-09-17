@@ -245,7 +245,7 @@ def run():
                         fc.forward(1)
                         time.sleep(.3)
                         fc.turn_right(100)
-                        time.sleep(.5)
+                        time.sleep(.3)
                         fc.stop()
                         time.sleep(2)
                         start = (start[0] - 1, start[1])
