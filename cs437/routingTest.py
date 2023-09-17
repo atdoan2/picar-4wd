@@ -175,7 +175,7 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (95,57)
+    start = (95,60)
     goal = (50,50)
     while True:
         updated_map = update_map(picar_position, threshold)
@@ -183,7 +183,7 @@ def run():
         buffered_map = add_buffer(add_buffer(add_buffer(updated_map)))
         for i in range(len(buffered_map)):
             for j in range(i):
-                if i>=97:
+                if i>=start[0]:
                     buffered_map[i][j]=0
         buffered_map[start[0]][start[1]] = 5
 
