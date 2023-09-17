@@ -204,6 +204,8 @@ def run():
                 category_name = category.category_name
                 probability = round(category.score, 2)
                 print(f"Detected Object: {category_name}, Probability: {probability}")
+                if category_name == 'stop sign':
+                    print("STOOPPPPP!!!!")
             if path:
                 # print("Path found:", path)
                 # print("Moves:")
