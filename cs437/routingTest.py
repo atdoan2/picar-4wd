@@ -248,7 +248,7 @@ def run():
                         time.sleep(.1)
                         fc.stop()
                         fc.turn_left(100)
-                        time.sleep(5)
+                        time.sleep(2.5)
                         fc.stop()
                         time.sleep(2)
                         start = (start[0] + 1, start[1])
