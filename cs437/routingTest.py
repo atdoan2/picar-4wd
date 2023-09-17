@@ -176,7 +176,7 @@ def add_buffer(grid):
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
     start = (85,65)
-    goal = (50,90)
+    goal = (50,10)
     while True:
         updated_map = update_map(picar_position, threshold)
         
@@ -247,8 +247,8 @@ def run():
                         fc.forward(1)
                         time.sleep(.1)
                         fc.stop()
-                        fc.turn_right(-200)
-                        time.sleep(1)
+                        fc.turn_left(100)
+                        time.sleep(2)
                         fc.stop()
                         time.sleep(2)
                         start = (start[0] + 1, start[1])
