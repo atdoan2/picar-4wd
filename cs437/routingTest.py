@@ -175,7 +175,7 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (95,60)
+    start = (90,60)
     goal = (50,50)
     while True:
         updated_map = update_map(picar_position, threshold)
@@ -208,7 +208,7 @@ def run():
                     if direction:
                         moves.append(direction)
 
-                moves = moves[0:5] # Limit to 5 moves per scan
+                moves = moves[0:10] # Limit to 5 moves per scan
                 # print(moves)
                 for move in moves:
                     if move == "up":
