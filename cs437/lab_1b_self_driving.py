@@ -198,8 +198,12 @@ def run():
         if (current_angle == 95 and us_step>0):
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
-            detected_object, percentage = detect.run('efficientdet_lite0.tflite', int(0), 640, 480, int(4), False)
-            print(detected_object, percentage)
+            detected_objects = detect.run('efficientdet_lite0.tflite', int(0), 640, 480, int(4), False)
+            for detection in detected_objects.detections:
+                category = detection.categories[0]
+                category_name = category.category_name
+                probability = round(category.score, 2)
+                print(f"Detected Object: {category_name}, Probability: {probability}")
             if path:
                 # print("Path found:", path)
                 # print("Moves:")
