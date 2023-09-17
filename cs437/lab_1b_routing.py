@@ -165,7 +165,7 @@ def add_buffer(grid):
                 new_grid[r][c] = 1
 
                 # Set neighboring cells to 1 (within bounds)
-                for dr, dc in [(1, 0), (-1, 0), (0, 1)]:
+                for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                     nr, nc = r + dr, c + dc
                     if 0 <= nr < rows and 0 <= nc < cols:
                         new_grid[nr][nc] = 1
@@ -175,12 +175,12 @@ def add_buffer(grid):
 # SLAM with ultrasonic sensor
 def run():
     threshold = 100  # Set threshold (can adjust as needed)
-    start = (95,60)
-    goal = (50,50)
+    start = (85,65)
+    goal = (50,10)
     while True:
         updated_map = update_map(picar_position, threshold)
         
-        buffered_map = add_buffer(updated_map)
+        buffered_map = add_buffer(add_buffer(add_buffer(add_buffer(updated_map))))
         for i in range(len(buffered_map)):
             for j in range(i):
                 if i>=start[0]:
@@ -229,11 +229,11 @@ def run():
                         time.sleep(1)
                         fc.stop()
                         fc.turn_left(100)
-                        time.sleep(2)
+                        time.sleep(3)
                         fc.forward(1)
                         time.sleep(.1)
                         fc.turn_right(100)
-                        time.sleep(.75)
+                        time.sleep(.5)
                         fc.stop()
                         time.sleep(2)
                         start = (start[0] - 1, start[1])
@@ -243,9 +243,10 @@ def run():
                         time.sleep(1)
                         fc.stop()
                         fc.turn_right(100)
-                        time.sleep(.75)
+                        time.sleep(1)
                         fc.forward(1)
                         time.sleep(.1)
+                        fc.stop()
                         fc.turn_left(100)
                         time.sleep(2)
                         fc.stop()
@@ -254,7 +255,6 @@ def run():
                 print("start: ", start)
                 print("goal: ", goal)
                 time.sleep(3)
-
             else:
                 print("No path found")
             
