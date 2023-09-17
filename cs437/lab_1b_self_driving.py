@@ -198,14 +198,20 @@ def run():
         if (current_angle == 95 and us_step>0):
             moves = []
             path, move_directions = astar_search(buffered_map, start, goal)
+            # After each scan, take a picture of the environment and calculate the objects. 
+            # Add logic if there's a stop sign or a person with >50% confidence
             detected_objects = detect.run('efficientdet_lite0.tflite', int(0), 640, 480, int(4), False)
             for detection in detected_objects:
                 category = detection.categories[0]
                 category_name = category.category_name
                 probability = round(category.score, 2)
                 print(f"Detected Object: {category_name}, Probability: {probability}")
-                if category_name == 'stop sign':
-                    print("STOOPPPPP!!!!")
+                if category_name == 'stop sign' and probability >= 0.50: # Wait 3 seconds if stop sign
+                    print("Stopping for 3 seconds")
+                    time.sleep(3)
+                if category_name == 'person' and probability >= 0.50: # Wait 5 seconds if a person is there
+                    print("Person in the way! Waiting 5 seconds")
+                    time.sleep(5)
             if path:
                 # print("Path found:", path)
                 # print("Moves:")
