@@ -206,7 +206,7 @@ def run():
                 category_name = category.category_name
                 probability = round(category.score, 2)
                 print(f"Detected Object: {category_name}, Probability: {probability}")
-                if category_name == 'stop sign' and probability >= 0.50: # Wait 3 seconds if stop sign
+                if category_name == 'stop sign' and probability >= 0.20: # Wait 3 seconds if stop sign
                     print("Stopping for 3 seconds")
                     time.sleep(3)
                 if category_name == 'person' and probability >= 0.50: # Wait 5 seconds if a person is there
