@@ -2,7 +2,7 @@ import numpy as np
 import time
 import picar_4wd as fc
 
-import heapqdsa
+import heapq
 
 # Initialize the map
 map_width = 100
