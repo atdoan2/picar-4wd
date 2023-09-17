@@ -67,7 +67,7 @@ def update_map(car_position, threshold):
     if 0 <= x < map_width and 0 <= y < map_height:
         # If the distance is below the threshold, mark the cell as an obstacle
         if distance <= threshold:
-            picar_map[-x-2, -y] = 1
+            picar_map[-x-2, -y-2] = 1
 
     # Increment the servo angle by us_step
     current_angle += us_step
