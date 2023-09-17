@@ -257,11 +257,6 @@ def run():
                 time.sleep(3)
             else:
                 print("No path found")
-            
-
-        
-       # update_car_position(picar_position, velocity)
-        #(picar_position)
 
 if __name__ == "__main__":
     try:
